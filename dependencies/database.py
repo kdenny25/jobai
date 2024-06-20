@@ -97,19 +97,22 @@ class Database:
 
         if filter == 'all':
             self.cursor.execute("SELECT id, jobTitle, company, salaryLow, salaryHigh, dateApplied, activeJob "
-                                "FROM jobs;")
+                                "FROM jobs "
+                                "ORDER BY id DESC;")
             jobs = self.cursor.fetchall()
 
         elif filter == 'active':
             self.cursor.execute("SELECT id, jobTitle, company, salaryLow, salaryHigh, dateApplied, activeJob "
                                        "FROM jobs "
-                                       "WHERE activeJob = %s;", (1,))
+                                       "WHERE activeJob = %s "
+                                       "ORDER BY id DESC;", (1,))
             jobs = self.cursor.fetchall()
 
         elif filter == 'inactive':
             self.cursor.execute("SELECT id, jobTitle, company, salaryLow, salaryHigh, dateApplied, activeJob "
                                        "FROM jobs "
-                                       "WHERE activeJob = %s;", (0,))
+                                       "WHERE activeJob = %s "
+                                       "ORDER BY id DESC;", (0,))
             jobs = self.cursor.fetchall()
 
         else:
@@ -128,20 +131,27 @@ class Database:
         self.con.commit()
 
     def view_job_listing(self, id):
-        self.cursor.execute("SELECT jobTitle, company, website, posting, salaryLow, salaryHigh, dateApplied "
+        self.cursor.execute("SELECT id, jobTitle, company, website, posting, salaryLow, salaryHigh, dateApplied "
                                   "FROM jobs WHERE id=%s;",(id,))
-        job = self.cursor.fetchall()
+        job = self.cursor.fetchall()[0]
 
         return job
 
     def monthly_applications(self):
         month = datetime.today().strftime('%m')
 
-        self.cursor.execute("SELECT id, EXTRACT(MONTH FROM dateApplied) AS monthApplied "
+        self.cursor.execute("SELECT COUNT(*) "
                                   "FROM jobs "
                                   "WHERE EXTRACT(MONTH FROM dateApplied) = %s;", (month, ))
-        job = self.cursor.fetchall()
-        return job
+        num_applications = self.cursor.fetchall()
+        return num_applications[0][0]
+
+    def total_active_applications(self):
+        self.cursor.execute("SELECT COUNT(*) "
+                            "FROM jobs "
+                            "WHERE activejob = 1;")
+        num_active = self.cursor.fetchall()
+        return num_active[0][0]
 
 #"WHERE strftime('%m', dateApplied) = ?", (month,)
     def edit_job_listing(self, dict):
