@@ -1,0 +1,92 @@
+<div id="edit-experience" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto bg-gray-900 bg-opacity-60 overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 w-full max-w-3xl max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <!-- Modal header -->
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                    Contact Information
+                </h3>
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="edit-experience">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <form class="p-4 md:p-5" method="post" action="{{ url_for("resume_builder.update_contact") }}">
+                <div class="grid gap-4 mb-4 grid-cols-2">
+                        <!-- Store index value -->
+                        <input type="hidden" name="ex_index" id="ex_index" value="">
+                        <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}" />
+                    <div class="grid grid-cols-2 col-span-2">
+                        <div class="col-span-1">
+                            <label for="ex_job_title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Position</label>
+                            <input type="text" name="ex_position" id="ex_job_title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type full name" value="{{ resume['name'] }}" required>
+                            <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}" />
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 col-span-2">
+                        <div class="col-span-1">
+                            <label for="ex_company" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Company Name</label>
+                            <input type="text" name="ex_company" id="ex_company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type full name" value="{{ resume['name'] }}" required>
+                            <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}" />
+                        </div>
+                    </div>
+                    <div class="col-span-2">
+                        <input id="ex_current" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                        <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}" />
+                        <label for="ex_current" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">I currently work here.</label>
+                    </div>
+                    <div class="col-span-2">
+                        <label for="ex_start" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Start Date</label>
+                        <div class="inline-flex gap-1">
+                            <select id="ex_start" name="ex_start_month" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                <option selected>Month</option>
+                                {% for month in months %}
+                                    <option value="{{ month }}">{{ month }}</option>
+                                {% endfor %}
+                            </select>
+                            <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}" />
+                            <select id="ex_start" name="ex_start_year" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                <option selected>Year</option>
+                                {% for year in years %}
+                                    <option value="{{ year }}">{{ year }}</option>
+                                {% endfor %}
+                            </select>
+                            <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}" />
+                        </div>
+                    </div>
+                    <div class="col-span-2">
+                        <label for="ex_end" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">End Date</label>
+                        <div class="inline-flex gap-1">
+                            <select id="ex_end" name="ex_end_month" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                <option selected>Month</option>
+                                {% for month in months %}
+                                    <option value="{{ month }}">{{ month }}</option>
+                                {% endfor %}
+                            </select>
+                            <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}" />
+                            <select id="ex_end" name="ex_end_year" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                <option selected>Year</option>
+                                {% for year in years %}
+                                    <option value="{{ year }}">{{ year }}</option>
+                                {% endfor %}
+                            </select>
+                            <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}" />
+                        </div>
+                    </div>
+                    <div class="col-span-2">
+                        <label for="ex_description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product Description</label>
+                        <textarea id="ex_description" name="ex_description" rows="10" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write summary here" >{{ resume['summary'] }}</textarea>
+                        <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}" />
+                    </div>
+                </div>
+                <button type="submit" class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    Update experience
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

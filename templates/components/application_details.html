@@ -23,8 +23,31 @@
                 </button>
             </div>
         </div>
-        <span class="font-small text-gray-900 dark:text-white" style="white-space: pre-line">
-            {{ job_details[4] }}
-        </span>
+        <dl class="divide-y divide-gray-100">
+            <div class="px-4 py-6 sm:grid sm:grid-cols-5 sm:gap-4 sm:px-0">
+                <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Job Title</dt>
+                <dd class="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-200 sm:col-span-4 sm:mt-0">{{ job_details[1] }}</dd>
+            </div>
+            <div class="px-4 py-6 sm:grid sm:grid-cols-5 sm:gap-4 sm:px-0">
+                <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Company</dt>
+                <dd class="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-200 sm:col-span-4 sm:mt-0">{{ job_details[2] }}</dd>
+            </div>
+            <div class="px-4 py-6 sm:grid sm:grid-cols-5 sm:gap-4 sm:px-0">
+                <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Email address</dt>
+                <dd class="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-200 sm:col-span-4 sm:mt-0">margotfoster@example.com</dd>
+            </div>
+            {% if job_details[5] != None or job_details[6] != None %}
+                <div class="px-4 py-6 sm:grid sm:grid-cols-5 sm:gap-4 sm:px-0">
+                    <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Salary expectation</dt>
+                    <dd class="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-200 sm:col-span-4 sm:mt-0">${{ '%0.2f' % job_details[5]|float }} - ${{ '%0.2f' % job_details[6]|float }}</dd>
+                </div>
+            {% endif %}
+            <div class="px-4 py-6 sm:grid sm:grid-cols-5 sm:gap-4 sm:px-0">
+                <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Description</dt>
+                <dd class="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-200 sm:col-span-4 sm:mt-0" style="white-space: pre-line">
+                    {{ job_details[4] }}
+                </dd>
+            </div>
+        </dl>
     </div>
 </div>

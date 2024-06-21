@@ -6,7 +6,8 @@ from datetime import datetime
 import math
 import spacy
 
-from dependencies import Database
+from dependencies import Database, Resume
+from apps.resume_builder.routes import resume_builder
 
 db = Database()
 
@@ -18,6 +19,8 @@ base_dir = '.'
 app = Flask(__name__,
             static_folder=os.path.join(base_dir, 'static'),
             template_folder=os.path.join(base_dir, 'templates'),)
+
+app.register_blueprint(resume_builder)
 
 # csrf protection
 csrf = CSRFProtect(app)

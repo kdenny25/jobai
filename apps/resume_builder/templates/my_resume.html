@@ -1,0 +1,227 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<header class="bg-white shadow">
+    <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        <h1 class="text-3xl font-bold tracking-tight text-gray-900">Resume Builder</h1>
+    </div>
+</header>
+<main>
+    <div class="flex flex-row">
+        <div class="basis-3/4 mx-auto w-full py-6 sm:pr-6 lg:pr-8">
+            <div class="w-full p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <div class="px-4 sm:px-0">
+                            <h3 class="text-2xl font-semibold leading-7 text-gray-900 dark:text-white">Resume</h3>
+                        </div>
+                        <div class="mt-6 border-t border-gray-100">
+                            <dl class="divide-y divide-gray-100 ">
+                                <!-- Contact Information Section -->
+                                <div class="px-4 py-6 sm:grid sm:grid-cols-5 sm:gap-4 sm:px-0">
+                                    <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Contact Info</dt>
+                                    <dd class="grid grid-cols-2 mt-1 text-sm leading-6 sm:col-span-4 sm:mt-0">
+                                        <!-- Edit Button -->
+                                        <div class="grid col-span-6 justify-end content-start">
+                                            <button type="button" data-modal-target="edit-contact" data-modal-toggle="edit-contact" class="text-white hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center me-2 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+                                                <i class="material-icons w-8 h-6">
+                                                    edit
+                                                </i>
+                                            </button>
+                                        </div>
+                                        <div class="flex flex-row ">
+                                            <div class="basis-1/4 flex flex-col gap-1">
+                                                <p class="text-sm font-medium mr-2 text-gray-900 truncate dark:text-white">
+                                                    Name:
+                                                </p>
+                                                <p class="text-sm font-medium mr-2 text-gray-900 truncate dark:text-white">
+                                                    Email:
+                                                </p>
+                                                <p class="text-sm font-medium mr-2 text-gray-900 truncate dark:text-white">
+                                                    Phone:
+                                                </p>
+                                                {% if resume['contact']['linkedin'] != '' %}
+                                                    <p class="text-sm font-medium mr-2 w-52 text-gray-900 truncate dark:text-white">
+                                                        LinkedIn Profile:
+                                                    </p>
+                                                {% endif %}
+                                                {% if resume['contact']['portfolio'] != '' %}
+                                                    <p class="text-sm font-medium mr-2 w-52 text-gray-900 truncate dark:text-white">
+                                                        Portfolio Site:
+                                                    </p>
+                                                {% endif %}
+                                            </div>
+                                            <div class="basis-3/4 flex flex-col gap-1">
+                                                <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300 ">
+                                                    {{ resume['name'] }}
+                                                </p>
+                                                <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300 ">
+                                                    {{ resume['contact']['email'] }}
+                                                </p>
+                                                <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300 ">
+                                                        {{ resume['contact']['phone'] }}
+                                                </p>
+                                                {% if resume['contact']['linkedin'] != '' %}
+                                                    <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300 ">
+                                                            {{ resume['contact']['linkedin'] }}
+                                                    </p>
+                                                {% endif %}
+                                                {% if resume['contact']['portfolio'] != '' %}
+                                                    <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300 ">
+                                                            {{ resume['contact']['portfolio'] }}
+                                                    </p>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </dd>
+                                </div>
+                                <!-- Summary Section -->
+                                <div class="px-4 py-6 sm:grid sm:grid-cols-5 sm:gap-4 sm:px-0">
+                                    <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Summary</dt>
+                                    <dd class="grid grid-cols-6 mt-1 text-sm leading-6 text-gray-700 dark:text-gray-300 sm:col-span-4 sm:mt-0">
+                                        <!-- Edit Button -->
+                                        <div class="grid col-span-6 justify-end content-start">
+                                            <button type="button" data-modal-target="edit-summary" data-modal-toggle="edit-summary" class="text-white hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center me-2 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+                                                <i class="material-icons w-8 h-6">
+                                                    edit
+                                                </i>
+                                            </button>
+                                        </div>
+                                        <div class="grid col-span-5">
+                                            <span style="white-space: pre-line">
+                                                {{ resume['summary'] }}
+                                            </span>
+                                        </div>
+                                    </dd>
+                                </div>
+                                <!-- Experience Section -->
+                                <div class="px-4 py-6 sm:grid sm:grid-cols-5 sm:gap-4 sm:px-0">
+                                    <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Experience</dt>
+                                    <dd class="grid grid-cols-6 mt-1 text-sm leading-6 text-gray-700 dark:text-gray-300 sm:col-span-4 sm:mt-0">
+                                        <!-- Add Button -->
+                                        <div class="grid col-span-6 justify-end content-start">
+                                            <button type="button" data-modal-target="edit-summary" data-modal-toggle="edit-summary" class="text-white hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center me-2 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+                                                <i class="material-icons w-8 h-6">
+                                                    add
+                                                </i>
+                                            </button>
+                                        </div>
+                                        <div class="grid col-span-6 gap-5">
+                                            <!-- Iterage through each work history -->
+                                            {% for experience in resume['work_history'] %}
+                                                <div class="flex">
+                                                    <!-- Main Content -->
+                                                    <div class="basis-10/12 grid grid-cols-2 ">
+                                                        <div class="text-lg font-large dark:text-white col-span-1">
+                                                            {{ experience['job_title'] }}, {{ experience['company_name'] }}
+                                                        </div>
+                                                        <div class="grid justify-end text-lg font-large dark:text-white col-span-1">
+                                                            {{ experience['date_started']['month'] }} {{ experience['date_started']['year'] }} -
+                                                            {% if experience['currently_working'] == True %}
+                                                                Current
+                                                            {% else %}
+                                                                {{ experience['date_ended']['month'] }} {{ experience['date_ended']['year'] }}
+                                                            {% endif %}
+                                                        </div>
+                                                        <div class="col-span-2">
+                                                            <span id="description-{{ loop.index }}" class="line-clamp-5" style="white-space: pre-line">
+                                                                {{ experience['description'] }}
+                                                            </span>
+                                                        </div>
+                                                        <div class="grid justify-end col-span-2">
+                                                            <button onclick=showMore(this,"description-{{ loop.index }}") class="text-blue-700 hover:text-blue-500 dark:text-blue-500 dark:hover:text-blue-300">show more</button>
+                                                        </div>
+
+                                                    </div>
+                                                    <!-- Edit Button -->
+                                                    <div class="grid align-center justify-end basis-1/12">
+                                                        <button type="button" onclick="editExperience({{ loop.index }})" data-modal-target="edit-experience" data-modal-toggle="edit-experience" class="text-white hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center me-2 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+                                                            <i class="material-icons w-8 h-6">
+                                                                edit
+                                                            </i>
+                                                        </button>
+                                                    </div>
+
+                                                </div>
+                                                {% if loop.index != '0' %}
+                                                    <hr class="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700">
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+
+                                    </dd>
+                                </div>
+                                <div class="px-4 py-6 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-0">
+                                    <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Email address</dt>
+                                    <dd class="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-300 sm:col-span-3 sm:mt-0">margotfoster@example.com</dd>
+                                </div>
+                                <div class="px-4 py-6 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-0">
+                                    <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Salary expectation</dt>
+                                    <dd class="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-300 sm:col-span-3 sm:mt-0">$120,000</dd>
+                                </div>
+                                <div class="px-4 py-6 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-0">
+                                    <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">About</dt>
+                                    <dd class="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-300 sm:col-span-3 sm:mt-0">
+
+                                    </dd>
+                                </div>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+{% include "resume_components/forms/edit_contact.html" %}
+{% include "resume_components/forms/edit_summary.html" %}
+{% include "resume_components/forms/edit_experience.html" %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+function showMore(button, clamp_element){
+    description = document.getElementById(clamp_element)
+    if (description.classList.contains('line-clamp-5')) {
+        description.classList.remove('line-clamp-5')
+        button.innerHTML = "show less"
+    } else {
+        description.classList.add('line-clamp-5')
+        button.innerHTML = "show more"
+    }
+}
+</script>
+<script>
+function editExperience(index){
+    resume = {{ resume['work_history'] | tojson }}
+    document.getElementById('ex_index').value = index-1
+    document.getElementById('ex_job_title').value = resume[index-1]['job_title']
+    document.getElementById('ex_company').value = resume[index-1]['company_name']
+    if ( resume[index-1]['currently_working']== 1 ){
+         document.getElementById('ex_current').checked = true;
+         $("select[name='ex_end_year']").prop('disabled', true);
+         $("select[name='ex_end_month']").prop('disabled', true);
+    } else {
+        document.getElementsByName('ex_end_month')[0].value = resume[index-1]['date_ended']['month']
+        document.getElementsByName('ex_end_year')[0].value = resume[index-1]['date_ended']['year']
+        document.getElementById('ex_current').checked = false;
+    }
+
+    document.getElementsByName('ex_start_month')[0].value = resume[index-1]['date_started']['month']
+    document.getElementsByName('ex_start_year')[0].value = resume[index-1]['date_started']['year']
+    document.getElementById('ex_description').value = resume[index-1]['description']
+}
+</script>
+<script>
+    $("#ex_current").change(function() {
+        if ($(this).is(":checked")) {
+            $("select[name='ex_end_year']").prop('disabled', true);
+            $("select[name='ex_end_month']").prop('disabled', true);
+        } else {
+            $("select[name='ex_end_year']").prop('disabled', false);
+            $("select[name='ex_end_month']").prop('disabled', false);
+        }
+    })
+</script>
+{% endblock %}
