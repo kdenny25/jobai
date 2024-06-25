@@ -30,6 +30,10 @@ app.secret_key = b'_53oi3uriq9pifpff;apl'
 def hello_world():  # put application's code here
     return render_template('index.html')
 
+@app.route('/applications/')
+def redir_applications():
+    return redirect('/applications/1')
+
 @app.route('/applications/<page>')
 def applications(page):
     search = request.values.get("_search")
@@ -99,6 +103,14 @@ def add_job():
     db.create_job_listing(job_title, company_name, company_website, job_description,
                           salary_low, salary_high, date_applied)
     return redirect('/applications/1')
+
+@app.get('/applications/archive')
+def archive_job():
+    job_id = request.values.get('_id')
+    db.set_active_job_listing(job_id, 0)
+
+
+    return redirect('/applications')
 
 if __name__ == '__main__':
     app.run()

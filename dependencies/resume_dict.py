@@ -67,40 +67,49 @@ class Resume:
         db.add_resume(self.userid, resume)
 
     def add_work_history(self,job_title, company_name, description, start_month, start_year,
-                         end_month=None, end_year=None, currently_working=False):
+                         end_month, end_year, currently_working):
 
-        if currently_working == True:
-            work_history = {
-                "job_title": job_title,
-                "company_name": company_name,
-                "date_started": {
-                    "month": start_month,
-                    "year": start_year,
-                },
-                "date_ended": {
-                    "month": end_month,
-                    "year": end_year,
-                },
-                "currently_working": currently_working,
-                "description": description
-            }
-        else:
-            work_history = {
-                "job_title": job_title,
-                "company_name": company_name,
-                "date_started": {
-                    "month": start_month,
-                    "year": start_year,
-                },
-                "date_ended": {
-                    "month": None,
-                    "year": None,
-                },
-                "currently_working": currently_working,
-                "description": description
-            }
+        work_history = {
+            "job_title": job_title,
+            "company_name": company_name,
+            "date_started": {
+                "month": start_month,
+                "year": start_year,
+            },
+            "date_ended": {
+                "month": end_month,
+                "year": end_year,
+            },
+            "currently_working": currently_working,
+            "description": description
+        }
 
         self.work_history.append(work_history)
+        self.update()
+
+    def update_work_history(self, index, job_title, company_name, description, start_month, start_year,
+                         end_month, end_year, currently_working):
+
+        work_history = {
+            "job_title": job_title,
+            "company_name": company_name,
+            "date_started": {
+                "month": start_month,
+                "year": start_year,
+            },
+            "date_ended": {
+                "month": end_month,
+                "year": end_year,
+            },
+            "currently_working": currently_working,
+            "description": description
+        }
+
+        self.work_history[index] = work_history
+        self.update()
+
+    def delete_work_history(self, index):
+        self.work_history.pop(index)
         self.update()
 
     def add_project(self, project_title, date_month, date_year, description):
@@ -125,7 +134,7 @@ class Resume:
                 "month": start_month,
                 "year": start_year,
             },
-            "date_graduated": {
+            "graduation_date": {
                 "month": end_month,
                 "year": end_year,
             },
@@ -135,6 +144,7 @@ class Resume:
         }
 
         self.education.append(education)
+        self.update()
 
     def add_certification(self, name, issuing_org, issued_month, issued_year, expire_month,
                           expire_year, cred_id=None, cred_url=None):

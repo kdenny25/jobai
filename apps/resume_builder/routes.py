@@ -36,7 +36,7 @@ def my_resume():
 
     return render_template('my_resume.html', resume=resume, months=Months, years=years)
 
-@resume_builder.post('/update_contact')
+@resume_builder.post('/my_resume/update_contact')
 def update_contact():
     resume = Resume(0)
 
@@ -50,11 +50,82 @@ def update_contact():
 
     return redirect("/my_resume")
 
-@resume_builder.post('/update_summary')
+@resume_builder.post('/my_resume/update_summary')
 def update_summary():
     resume = Resume(0)
 
     resume.summary = request.form.get('summary')
     resume.update()
+
+    return redirect("/my_resume")
+
+@resume_builder.post('/my_resume/update_experience')
+def update_experience():
+    resume = Resume(0)
+
+    index = int(request.form.get('ex_index'))
+    job_title = request.form.get('ex_job_title')
+    company_name = request.form.get('ex_company')
+    current = 'ex_current' in request.form
+    start_month = request.form.get('ex_start_month')
+    start_year = request.form.get('ex_start_year')
+    end_month = request.form.get('ex_end_month') if current is False else None
+    end_year = request.form.get('ex_end_year') if current is False else None
+    description = request.form.get('ex_description')
+
+
+    resume.update_work_history(index=index, job_title=job_title, company_name=company_name, currently_working=current,
+                               start_month=start_month, start_year=start_year, end_month=end_month, end_year=end_year,
+                               description=description)
+
+    return redirect("/my_resume")
+
+@resume_builder.post('/my_resume/add_experience')
+def add_experience():
+    resume = Resume(0)
+
+    job_title = request.form.get('add_job_title')
+    company_name = request.form.get('add_company')
+    current = 'add_current' in request.form
+    start_month = request.form.get('add_start_month')
+    start_year = request.form.get('add_start_year')
+    end_month = request.form.get('add_end_month') if current is False else None
+    end_year = request.form.get('add_end_year') if current is False else None
+    description = request.form.get('add_description')
+
+
+    resume.add_work_history(job_title=job_title, company_name=company_name, currently_working=current,
+                               start_month=start_month, start_year=start_year, end_month=end_month, end_year=end_year,
+                               description=description)
+
+    return redirect("/my_resume")
+
+@resume_builder.get('/my_resume/delete_ex')
+def delete_experience():
+    resume = Resume(0)
+    experience_id = int(request.values.get("_exid")) - 1
+
+    resume.delete_work_history(experience_id)
+
+    return redirect("/my_resume")
+
+@resume_builder.post('/my_resume/add_education')
+def add_education():
+    resume = Resume(0)
+
+    school_name = request.form.get('school_name')
+    degree = request.form.get('add_degree')
+    field_of_study = request.form.get('add_field_of_study')
+    grade = request.form.get('add_grade')
+    start_month = request.form.get('add_start_month')
+    start_year = request.form.get('add_start_year')
+    end_month = request.form.get('add_end_month')
+    end_year = request.form.get('add_end_year')
+    activities = request.form.get('add_activities')
+    description = request.form.get('add_description')
+
+    resume.add_education(school_name=school_name, degree=degree, field_of_study=field_of_study, grade=grade,
+                         start_month=start_month, start_year=start_year, end_month=end_month, end_year=end_year,
+                         activities=activities, description=description)
 
     return redirect("/my_resume")

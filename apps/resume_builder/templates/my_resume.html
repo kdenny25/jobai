@@ -87,7 +87,7 @@
                                                 </i>
                                             </button>
                                         </div>
-                                        <div class="grid col-span-5">
+                                        <div class="grid col-span-6">
                                             <span style="white-space: pre-line">
                                                 {{ resume['summary'] }}
                                             </span>
@@ -100,10 +100,11 @@
                                     <dd class="grid grid-cols-6 mt-1 text-sm leading-6 text-gray-700 dark:text-gray-300 sm:col-span-4 sm:mt-0">
                                         <!-- Add Button -->
                                         <div class="grid col-span-6 justify-end content-start">
-                                            <button type="button" data-modal-target="edit-summary" data-modal-toggle="edit-summary" class="text-white hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center me-2 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+                                            <button type="button" data-modal-target="add-experience" data-modal-toggle="add-experience" class="text-white hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center me-2 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
                                                 <i class="material-icons w-8 h-6">
                                                     add
                                                 </i>
+                                                Add experience
                                             </button>
                                         </div>
                                         <div class="grid col-span-6 gap-5">
@@ -111,7 +112,7 @@
                                             {% for experience in resume['work_history'] %}
                                                 <div class="flex">
                                                     <!-- Main Content -->
-                                                    <div class="basis-10/12 grid grid-cols-2 ">
+                                                    <div class=" grid grid-cols-2 basis-11/12">
                                                         <div class="text-lg font-large dark:text-white col-span-1">
                                                             {{ experience['job_title'] }}, {{ experience['company_name'] }}
                                                         </div>
@@ -131,17 +132,46 @@
                                                         <div class="grid justify-end col-span-2">
                                                             <button onclick=showMore(this,"description-{{ loop.index }}") class="text-blue-700 hover:text-blue-500 dark:text-blue-500 dark:hover:text-blue-300">show more</button>
                                                         </div>
-
                                                     </div>
                                                     <!-- Edit Button -->
-                                                    <div class="grid align-center justify-end basis-1/12">
-                                                        <button type="button" onclick="editExperience({{ loop.index }})" data-modal-target="edit-experience" data-modal-toggle="edit-experience" class="text-white hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center me-2 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
-                                                            <i class="material-icons w-8 h-6">
-                                                                edit
-                                                            </i>
-                                                        </button>
-                                                    </div>
+                                                    <div class="flex flex-col basis-1/12 ml-2">
+                                                        <div class="flex justify-center basis-1/4 ">
+                                                            <div>
+                                                                <button id="ex-options-btn-{{ loop.index }}" data-dropdown-toggle="ex-options-{{ loop.index }}" class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600" type="button">
+                                                                 <i class="material-icons w-8 h-6">
+                                                                    more_vert
+                                                                </i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <div id="ex-options-{{ loop.index }}" class="flex hidden justify-center basis-3/4 ">
+                                                            <div class="flex flex-col justify-center gap-0.5">
+                                                                <!-- Move buttons -->
+                                                                <button type="button" onclick="editExperience({{ loop.index }})" data-modal-target="edit-experience" data-modal-toggle="edit-experience" class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600" >
+                                                                    <i class="material-icons w-8 h-6">
+                                                                        keyboard_arrow_up
+                                                                    </i>
+                                                                </button>
+                                                                <button type="button" onclick="editExperience({{ loop.index }})" data-modal-target="edit-experience" data-modal-toggle="edit-experience" class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600" >
+                                                                    <i class="material-icons w-8 h-6">
+                                                                        keyboard_arrow_down
+                                                                    </i>
+                                                                </button>
+                                                                <button type="button" onclick="editExperience({{ loop.index }})" data-modal-target="edit-experience" data-modal-toggle="edit-experience" class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600" >
+                                                                    <i class="material-icons w-8 h-6">
+                                                                        edit
+                                                                    </i>
+                                                                </button>
+                                                                <button type="button" onclick="deleteExperience({{ loop.index }})" data-modal-target="delete-experience" data-modal-toggle="delete-experience" class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600" >
+                                                                    <i class="material-icons w-8 h-6">
+                                                                        delete
+                                                                    </i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
 
+
+                                                    </div>
                                                 </div>
                                                 {% if loop.index != '0' %}
                                                     <hr class="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700">
@@ -151,20 +181,111 @@
 
                                     </dd>
                                 </div>
-                                <div class="px-4 py-6 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-0">
-                                    <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Email address</dt>
-                                    <dd class="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-300 sm:col-span-3 sm:mt-0">margotfoster@example.com</dd>
-                                </div>
-                                <div class="px-4 py-6 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-0">
-                                    <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Salary expectation</dt>
-                                    <dd class="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-300 sm:col-span-3 sm:mt-0">$120,000</dd>
-                                </div>
-                                <div class="px-4 py-6 sm:grid sm:grid-cols-4 sm:gap-4 sm:px-0">
-                                    <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">About</dt>
-                                    <dd class="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-300 sm:col-span-3 sm:mt-0">
+                                <!-- Education Section -->
+                                <div class="px-4 py-6 sm:grid sm:grid-cols-5 sm:gap-4 sm:px-0">
+                                    <dt class="text-sm font-medium leading-6 text-gray-900 dark:text-white">Education</dt>
+                                    <dd class="grid grid-cols-6 mt-1 text-sm leading-6 text-gray-700 dark:text-gray-300 sm:col-span-4 sm:mt-0">
+                                        <!-- Add Button -->
+                                        <div class="grid col-span-6 justify-end content-start">
+                                            <button type="button" data-modal-target="add-education" data-modal-toggle="add-education" class="text-white hover:bg-gray-600 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center me-2 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+                                                <i class="material-icons w-8 h-6">
+                                                    add
+                                                </i>
+                                                Add Education
+                                            </button>
+                                        </div>
+                                        <div class="grid col-span-6 gap-5">
+                                            <!-- Iterage through each education -->
+                                            {% for education in resume['education'] %}
+                                                <div class="flex">
+                                                    <!-- Main Content -->
+                                                    <div class=" grid grid-cols-2 basis-11/12">
+                                                        <div class="text-lg font-large dark:text-white col-span-2">
+                                                            {{ education['school_name'] }}
+                                                        </div>
+                                                        <div class="text-lg font-large dark:text-gray-400 col-span-2">
+                                                            {{ education['degree'] }}, {{ education['field_of_study'] }}
+                                                        </div>
+                                                        <div class="text-lg font-large dark:text-gray-400 col-span-2">
+                                                            {{ education['date_started']['month'] }} {{ education['date_started']['year'] }} - {{ education['graduation_date']['month'] }} {{ education['graduation_date']['year'] }}
+                                                        </div>
+                                                        {% if education['grade'] != ''%}
+                                                            <div class="text-lg font-large dark:text-gray-400 col-span-2">
+                                                                GPA: {{ education['grade'] }}
+                                                            </div>
+                                                        {% endif %}
+                                                        <!-- activities and description -->
+                                                        <div class="col-span-2">
 
+                                                            <span id="edu-activities-{{ loop.index }}" class="line-clamp-5" style="white-space: pre-line">
+                                                                {{ education['activities'] }}
+                                                            </span>
+                                                        </div>
+                                                        {% if education['activities'] != '' %}
+                                                            <div class="grid justify-end col-span-2">
+                                                                <button onclick=showMore(this,"edu-activities-{{ loop.index }}") class="text-blue-700 hover:text-blue-500 dark:text-blue-500 dark:hover:text-blue-300">show more</button>
+                                                            </div>
+                                                        {% endif %}
+                                                        <!-- activities and description -->
+                                                        <div class="col-span-2">
+                                                            <span id="edu-description-{{ loop.index }}" class="line-clamp-5" style="white-space: pre-line">
+                                                                {{ education['description'] }}
+                                                            </span>
+                                                        </div>
+                                                        {% if education['description'] != '' %}
+                                                            <div class="grid justify-end col-span-2">
+                                                                <button onclick=showMore(this,"edu-description-{{ loop.index }}") class="text-blue-700 hover:text-blue-500 dark:text-blue-500 dark:hover:text-blue-300">show more</button>
+                                                            </div>
+                                                        {% endif %}
+                                                    </div>
+                                                    <!-- Edit Button -->
+                                                    <div class="flex flex-col basis-1/12 ml-2">
+                                                        <div class="flex justify-center basis-1/4 ">
+                                                            <div>
+                                                                <button id="edu-options-btn-{{ loop.index }}" data-dropdown-toggle="edu-options-{{ loop.index }}" class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600" type="button">
+                                                                 <i class="material-icons w-8 h-6">
+                                                                    more_vert
+                                                                </i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <div id="edu-options-{{ loop.index }}" class="flex hidden justify-center basis-3/4 ">
+                                                            <div class="flex flex-col justify-center gap-0.5">
+                                                                <!-- Move buttons -->
+                                                                <button type="button" onclick="editExperience({{ loop.index }})" data-modal-target="edit-education" data-modal-toggle="edit-education" class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600" >
+                                                                    <i class="material-icons w-8 h-6">
+                                                                        keyboard_arrow_up
+                                                                    </i>
+                                                                </button>
+                                                                <button type="button" onclick="editExperience({{ loop.index }})" data-modal-target="edit-education" data-modal-toggle="edit-education" class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600" >
+                                                                    <i class="material-icons w-8 h-6">
+                                                                        keyboard_arrow_down
+                                                                    </i>
+                                                                </button>
+                                                                <button type="button" onclick="editExperience({{ loop.index }})" data-modal-target="edit-education" data-modal-toggle="edit-education" class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600" >
+                                                                    <i class="material-icons w-8 h-6">
+                                                                        edit
+                                                                    </i>
+                                                                </button>
+                                                                <button type="button" onclick="deleteExperience({{ loop.index }})" data-modal-target="delete-education" data-modal-toggle="delete-education" class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600" >
+                                                                    <i class="material-icons w-8 h-6">
+                                                                        delete
+                                                                    </i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                                {% if loop.index != '0' %}
+                                                    <hr class="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700">
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
                                     </dd>
                                 </div>
+                               <!-- End of Resume Section -->
                             </dl>
                         </div>
                     </div>
@@ -177,6 +298,9 @@
 {% include "resume_components/forms/edit_contact.html" %}
 {% include "resume_components/forms/edit_summary.html" %}
 {% include "resume_components/forms/edit_experience.html" %}
+{% include "resume_components/forms/add_experience.html" %}
+{% include "resume_components/forms/delete_experience.html" %}
+{% include "resume_components/forms/add_education.html" %}
 {% endblock %}
 
 {% block scripts %}
@@ -193,6 +317,11 @@ function showMore(button, clamp_element){
 }
 </script>
 <script>
+function deleteExperience(index){
+    $("#ex-delete-confirm").attr("href", "/my_resume/delete_ex?_exid=".concat(index))
+}
+</script>
+<script>
 function editExperience(index){
     resume = {{ resume['work_history'] | tojson }}
     document.getElementById('ex_index').value = index-1
@@ -206,6 +335,8 @@ function editExperience(index){
         document.getElementsByName('ex_end_month')[0].value = resume[index-1]['date_ended']['month']
         document.getElementsByName('ex_end_year')[0].value = resume[index-1]['date_ended']['year']
         document.getElementById('ex_current').checked = false;
+        $("select[name='ex_end_year']").prop('disabled', false);
+         $("select[name='ex_end_month']").prop('disabled', false);
     }
 
     document.getElementsByName('ex_start_month')[0].value = resume[index-1]['date_started']['month']
