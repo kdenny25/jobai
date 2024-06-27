@@ -9,10 +9,9 @@
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     </head>
     <body class="bg-white shadow dark:bg-gray-900">
-        <div class="min-h-full">
-            {% include "components/horizontal_nav.html" %}
-            {% block content %}{% endblock %}
-        </div>
+        {% include "components/horizontal_nav.html" %}
+        {% block sidebar %}{% endblock %}
+        {% block content %}{% endblock %}
         {% block scripts %}{% endblock %}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/datepicker.min.js"></script>

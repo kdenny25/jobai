@@ -1,6 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block content %}
+<div class="p-0 mt-14"> <!-- Adjust this to accommodate the sidebar -->
 <header class="bg-white shadow">
     <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
         <h1 class="text-3xl font-bold tracking-tight text-gray-900">Application Tracker</h1>
@@ -148,4 +149,5 @@
         $("input[name=salary_high]").val(($(this).val()*2080))
     })
 </script>
+</div>
 {% endblock %}

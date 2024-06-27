@@ -32,6 +32,7 @@ def gen_years():
 def my_resume():
     # temporarily use 1 to indicate it's my userid
     resume = Resume(0).to_dict()
+    #print(resume)
     years = gen_years()
 
     return render_template('my_resume.html', resume=resume, months=Months, years=years)
@@ -127,5 +128,35 @@ def add_education():
     resume.add_education(school_name=school_name, degree=degree, field_of_study=field_of_study, grade=grade,
                          start_month=start_month, start_year=start_year, end_month=end_month, end_year=end_year,
                          activities=activities, description=description)
+
+    return redirect("/my_resume")
+
+@resume_builder.post('/my_resume/edit_education')
+def edit_education():
+    resume = Resume(0)
+
+    index = request.form.get('edu_index')
+    school_name = request.form.get('edit_school_name')
+    degree = request.form.get('edit_degree')
+    field_of_study = request.form.get('edit_field_of_study')
+    grade = request.form.get('edit_grade')
+    start_month = request.form.get('edit_start_month')
+    start_year = request.form.get('edit_start_year')
+    end_month = request.form.get('edit_end_month')
+    end_year = request.form.get('edit_end_year')
+    activities = request.form.get('edit_activities')
+    description = request.form.get('edit_description')
+
+    resume.update_education(index=index, school_name=school_name, degree=degree, field_of_study=field_of_study,
+                            grade=grade, start_month=start_month, start_year=start_year, end_month=end_month,
+                            end_year=end_year, activities=activities, description=description)
+    return redirect('/my_resume')
+
+@resume_builder.get('/my_resume/')
+def delete_education():
+    resume = Resume(0)
+    education_id = int(request.values.get("_exid")) - 1
+
+    resume.delete_education(education_id)
 
     return redirect("/my_resume")

@@ -146,6 +146,32 @@ class Resume:
         self.education.append(education)
         self.update()
 
+    def update_education(self,index, school_name, degree, field_of_study, start_month, start_year,
+                      end_month=None, end_year=None, grade=None, activities=None, description=None):
+        education = {
+            "school_name": school_name,
+            "degree": degree,
+            "field_of_study": field_of_study,
+            "date_started": {
+                "month": start_month,
+                "year": start_year,
+            },
+            "graduation_date": {
+                "month": end_month,
+                "year": end_year,
+            },
+            "grade": grade,
+            "activities": activities,
+            "description": description,
+        }
+
+        self.education[index] = education
+        self.update()
+
+    def delete_education(self, index):
+        self.education.pop(index)
+        self.update()
+
     def add_certification(self, name, issuing_org, issued_month, issued_year, expire_month,
                           expire_year, cred_id=None, cred_url=None):
         certification = {
