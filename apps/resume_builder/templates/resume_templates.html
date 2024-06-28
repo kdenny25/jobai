@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+
+{% block sidebar %}
+{% include 'resume_components/sidebar.html' %}
+{% endblock %}
+{% block content %}
+
+<div class="p-0 mt-14 sm:ml-64"> <!-- Adjust this to accommodate the sidebar -->
+<header class="bg-white shadow">
+    <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        <h1 class="text-3xl font-bold tracking-tight text-gray-900">Resume Builder</h1>
+    </div>
+</header>
+
+<main>
+    <div class="grid justify-center p-4">
+        <iframe
+            src="/my_resume/view_template"
+            width="850px"
+            height="1100px"></iframe>
+    </div>
+</main>
+
+{% endblock %}
+
+{% block scripts %}
+</div>
+{% endblock %}

@@ -1,9 +1,13 @@
+import os
+from docx2pdf import convert
 from flask import Blueprint, render_template, request, redirect
+from docxtpl import DocxTemplate
 from dependencies import Database, Resume
 from datetime import datetime
 
 resume_builder = Blueprint("resume_builder", __name__,
-                           template_folder="templates")
+                           template_folder="templates",
+                           static_folder='static')
 
 Months = [
     "January",
@@ -152,7 +156,7 @@ def edit_education():
                             end_year=end_year, activities=activities, description=description)
     return redirect('/my_resume')
 
-@resume_builder.get('/my_resume/')
+@resume_builder.get('/my_resume/delete_education')
 def delete_education():
     resume = Resume(0)
     education_id = int(request.values.get("_exid")) - 1
@@ -160,3 +164,20 @@ def delete_education():
     resume.delete_education(education_id)
 
     return redirect("/my_resume")
+
+@resume_builder.get('/my_resume/templates')
+def templates():
+    resume = Resume(0)
+
+    doc = DocxTemplate('resume_skeletons/ATS_Resume_Template.docx')
+    context = resume.to_dict()
+    doc.render(context)
+    doc.save('apps/resume_builder/static/generated.docx')
+    #convert('apps/resume_builder/static/generated.docx')
+
+    return render_template('resume_templates.html')
+
+@resume_builder.get('/my_resume/view_template')
+def view_template():
+    resume = Resume(0).to_dict()
+    return render_template('resume_skeletons/ATS_Resume_Template.html', resume=resume)

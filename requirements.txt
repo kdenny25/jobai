@@ -6,3 +6,5 @@ requests
 flask-bcrypt
 python-dotenv
 spacy
+docxtpl
+docx2pdf

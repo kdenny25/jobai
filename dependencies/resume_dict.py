@@ -16,6 +16,7 @@ class Resume:
         self.projects = []
         self.education = []
         self.certifications = []
+        self.awards = []
         self.skills = []
 
         self.load_from_db()
@@ -34,6 +35,7 @@ class Resume:
         self.projects = resume['projects']
         self.education = resume['education']
         self.certifications = resume['certifications']
+        self.awards = resume['awards']
         self.skills = resume['skills']
 
     def to_dict(self):
@@ -51,9 +53,29 @@ class Resume:
             "education": self.education,
             "certifications": self.certifications,
             "skills": self.skills,
+            "awards": self.awards
         }
 
         return resume
+
+    def remove_leading_char(self, string: str):
+        string = string.strip()
+
+        if string[0].isalnum():
+            return string
+        else:
+            string = string[1:].strip()
+            return string
+
+    def remove_ending_char(self, string: str):
+        string = string.strip()
+
+        if string[-1].isalnum():
+            return string
+        else:
+            string = string[0:-1].strip()
+            return string
+
     def update(self):
         """Updates Resume"""
         resume = self.to_dict()
@@ -69,6 +91,11 @@ class Resume:
     def add_work_history(self,job_title, company_name, description, start_month, start_year,
                          end_month, end_year, currently_working):
 
+        split_description = description.splitlines() # split description lines to apply our own formatting
+        split_description = [self.remove_leading_char(desc) for desc in split_description] # remove leading styling
+        split_description = [self.remove_ending_char(desc) for desc in
+                             split_description] # remove ending to apply consistent endings
+
         work_history = {
             "job_title": job_title,
             "company_name": company_name,
@@ -81,7 +108,8 @@ class Resume:
                 "year": end_year,
             },
             "currently_working": currently_working,
-            "description": description
+            "description": description,
+            "description_split": split_description
         }
 
         self.work_history.append(work_history)
@@ -89,6 +117,10 @@ class Resume:
 
     def update_work_history(self, index, job_title, company_name, description, start_month, start_year,
                          end_month, end_year, currently_working):
+        split_description = description.splitlines() # split description lines to apply our own formatting
+        split_description = [self.remove_leading_char(desc) for desc in split_description] # remove leading styling
+        split_description = [self.remove_ending_char(desc) for desc in
+                             split_description]  # remove ending to apply consistent endings
 
         work_history = {
             "job_title": job_title,
@@ -102,7 +134,8 @@ class Resume:
                 "year": end_year,
             },
             "currently_working": currently_working,
-            "description": description
+            "description": description,
+            "description_split": split_description
         }
 
         self.work_history[index] = work_history
