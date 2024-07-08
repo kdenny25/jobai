@@ -7,7 +7,8 @@ from datetime import datetime
 
 resume_builder = Blueprint("resume_builder", __name__,
                            template_folder="templates",
-                           static_folder='static')
+                           static_folder='static',
+                           static_url_path='/static/resume_builder')
 
 Months = [
     "January",

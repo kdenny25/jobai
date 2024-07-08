@@ -1,7 +1,6 @@
 {% extends 'layout.html' %}
 
 {% block sidebar %}
-{% include 'resume_components/sidebar.html' %}
 {% endblock %}
 {% block content %}
 
@@ -22,6 +21,8 @@
                         <div class="px-4 sm:px-0">
                             <h3 class="text-2xl font-semibold leading-7 text-gray-900 dark:text-white">Resume</h3>
                         </div>
+                        {% include 'resume_components/sidebar.html' %}
+
                         <div class="mt-6 border-t border-gray-100">
                             <dl class="divide-y divide-gray-100 ">
                                 <!-- Contact Information Section -->
@@ -36,47 +37,47 @@
                                                 </i>
                                             </button>
                                         </div>
-                                        <div class="flex flex-row ">
-                                            <div class="basis-1/4 flex flex-col gap-1">
-                                                <p class="text-sm font-medium mr-2 text-gray-900 truncate dark:text-white">
+                                        <div class="grid grid-flow-col col-span-6 auto-cols-max ">
+                                            <div class="grid-flow-row auto-rows-max gap-1">
+                                                <p class="text-sm font-medium mr-2 text-gray-900 truncate dark:text-white bg-gray-700">
                                                     Name:
                                                 </p>
-                                                <p class="text-sm font-medium mr-2 text-gray-900 truncate dark:text-white">
+                                                <p class="text-sm font-medium mr-2 text-gray-900 truncate dark:text-white bg-gray-700">
                                                     Email:
                                                 </p>
-                                                <p class="text-sm font-medium mr-2 text-gray-900 truncate dark:text-white">
+                                                <p class="text-sm font-medium mr-2 text-gray-900 truncate dark:text-white bg-gray-700">
                                                     Phone:
                                                 </p>
                                                 {% if resume['contact']['linkedin'] != '' %}
-                                                    <p class="text-sm font-medium mr-2 w-52 text-gray-900 truncate dark:text-white">
+                                                    <p class="text-sm font-medium mr-2 text-gray-900 dark:text-white bg-gray-700">
                                                         LinkedIn Profile:
                                                     </p>
                                                 {% endif %}
                                                 {% if resume['contact']['portfolio'] != '' %}
-                                                    <p class="text-sm font-medium mr-2 w-52 text-gray-900 truncate dark:text-white">
+                                                    <p class="text-sm font-medium mr-2 text-gray-900 dark:text-white bg-gray-700">
                                                         Portfolio Site:
                                                     </p>
                                                 {% endif %}
                                             </div>
-                                            <div class="basis-3/4 flex flex-col gap-1">
-                                                <span class="text-sm font-medium text-gray-900 truncate dark:text-gray-300 ">
+                                            <div class="grid-flow-row auto-rows-max gap-1">
+                                                <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300 bg-gray-700">
                                                     {{ resume['name'] }}
-                                                </span>
-                                                <span class="text-sm font-medium text-gray-900 truncate dark:text-gray-300 ">
+                                                </p>
+                                                <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300 bg-gray-700">
                                                     {{ resume['contact']['email'] }}
-                                                </span>
-                                                <span class="text-sm font-medium text-gray-900 truncate dark:text-gray-300 ">
+                                                </p>
+                                                <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300 bg-gray-700">
                                                         {{ resume['contact']['phone'] }}
-                                                </span>
+                                                </p>
                                                 {% if resume['contact']['linkedin'] != '' %}
-                                                    <span class="text-sm font-medium text-gray-900 truncate dark:text-gray-300 ">
+                                                    <p class="text-sm font-medium w-80 text-wrap text-gray-900 truncate dark:text-gray-300 bg-gray-700">
                                                             {{ resume['contact']['linkedin'] }}
-                                                    </span>
+                                                    </p>
                                                 {% endif %}
                                                 {% if resume['contact']['portfolio'] != '' %}
-                                                    <span class="text-sm font-medium text-gray-900 truncate dark:text-gray-300 ">
+                                                    <p class="text-sm font-medium w-52 text-gray-900 truncate dark:text-gray-300 bg-gray-700">
                                                             {{ resume['contact']['portfolio'] }}
-                                                    </span>
+                                                    </p>
                                                 {% endif %}
                                             </div>
                                         </div>

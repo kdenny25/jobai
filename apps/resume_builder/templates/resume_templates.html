@@ -8,16 +8,117 @@
 <div class="p-0 mt-14 sm:ml-64"> <!-- Adjust this to accommodate the sidebar -->
 <header class="bg-white shadow">
     <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        <h1 class="text-3xl font-bold tracking-tight text-gray-900">Resume Builder</h1>
+        <h1 class="text-3xl font-bold tracking-tight text-gray-900">ATS Friendly Templates</h1>
     </div>
 </header>
 
 <main>
-    <div class="grid justify-center p-4">
-        <iframe
-            src="/my_resume/view_template"
-            width="850px"
-            height="1100px"></iframe>
+        <div class="flex w-full p-4 overflow-x-auto pb-4  dark:bg-gray-800 dark:border-gray-700">
+            <div class="flex flex-nowrap">
+                <div class="inline-block px-3">
+                    <div type="button" class="grid place-content-center w-40 p-4 max-w-xs overflow-hidden focus:scroll-auto focus:border-gray-800 dark:focus:border-gray-200 rounded-lg shadow-md bg-white dark:bg-gray-600 dark:shadow-gray-500 hover:shadow-xl transition-shadow  duration-300 ease-in-out">
+                        <img class="bg-white w-32" src={{ url_for('resume_builder.static', filename='thumbnails/template-01.svg') }}>
+                    </div>
+                </div>
+                <div class="inline-block px-3">
+                    <div type="button" class="grid place-content-center w-40 p-4 max-w-xs overflow-hidden focus:scroll-auto focus:border-gray-800 dark:focus:border-gray-200 rounded-lg shadow-md bg-white dark:bg-gray-600 dark:shadow-gray-500 hover:shadow-xl transition-shadow  duration-300 ease-in-out">
+                        <img class="bg-white w-32" src={{ url_for('resume_builder.static', filename='thumbnails/template-01.svg') }}>
+                    </div>
+                </div>
+                <div class="inline-block px-3">
+                    <div type="button" class="grid place-content-center w-40 p-4 max-w-xs overflow-hidden focus:scroll-auto focus:border-gray-800 dark:focus:border-gray-200 rounded-lg shadow-md bg-white dark:bg-gray-600 dark:shadow-gray-500 hover:shadow-xl transition-shadow  duration-300 ease-in-out">
+                        <img class="bg-white w-32" src={{ url_for('resume_builder.static', filename='thumbnails/template-01.svg') }}>
+                    </div>
+                </div>
+                <div class="inline-block px-3">
+                    <div type="button" class="grid place-content-center w-40 p-4 max-w-xs overflow-hidden focus:scroll-auto focus:border-gray-800 dark:focus:border-gray-200 rounded-lg shadow-md bg-white dark:bg-gray-600 dark:shadow-gray-500 hover:shadow-xl transition-shadow  duration-300 ease-in-out">
+                        <img class="bg-white w-32" src={{ url_for('resume_builder.static', filename='thumbnails/template-01.svg') }}>
+                    </div>
+                </div>
+                <div class="inline-block px-3">
+                    <div type="button" class="grid place-content-center w-40 p-4 max-w-xs overflow-hidden focus:scroll-auto focus:border-gray-800 dark:focus:border-gray-200 rounded-lg shadow-md bg-white dark:bg-gray-600 dark:shadow-gray-500 hover:shadow-xl transition-shadow  duration-300 ease-in-out">
+                        <img class="bg-white w-32" src={{ url_for('resume_builder.static', filename='thumbnails/template-01.svg') }}>
+                    </div>
+                </div>
+                <div class="inline-block px-3">
+                    <div type="button" class="grid place-content-center w-40 p-4 max-w-xs overflow-hidden focus:scroll-auto focus:border-gray-800 dark:focus:border-gray-200 rounded-lg shadow-md bg-white dark:bg-gray-600 dark:shadow-gray-500 hover:shadow-xl transition-shadow  duration-300 ease-in-out">
+                        <img class="bg-white w-32" src={{ url_for('resume_builder.static', filename='thumbnails/template-01.svg') }}>
+                    </div>
+                </div>
+                <div class="inline-block px-3">
+                    <a type="button" class="grid place-content-center w-40 p-4 max-w-xs overflow-hidden focus:scroll-auto focus:border-gray-800 dark:focus:border-gray-200 rounded-lg shadow-md bg-white dark:bg-gray-600 dark:shadow-gray-500 hover:shadow-xl transition-shadow  duration-300 ease-in-out">
+                        <img class="bg-white w-32" src={{ url_for('resume_builder.static', filename='thumbnails/template-01.svg') }}>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    <div class="grid justify-center ">
+        <div class="mx-auto my-4 p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+            <div class="grid grid-cols-2 justify-between">
+                <div class="mb-4">
+                    <label class="inline-flex items-center cursor-pointer">
+                        <input type="checkbox" value="" class="sr-only peer">
+                        <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                        <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Set Default</span>
+                    </label>
+                </div>
+                <div>
+
+                </div>
+            </div>
+            <iframe
+                src="/my_resume/view_template"
+                width="850px"
+                height="1100px"></iframe>
+            <div data-dial-init class="fixed bottom-6 right-24 group">
+                <div id="speed-dial-menu-dropdown" class="flex flex-col justify-end hidden py-1 mb-4 space-y-2 bg-white border border-gray-100 rounded-lg shadow-sm dark:border-gray-600 dark:bg-gray-700">
+                    <ul class="text-sm text-gray-500 dark:text-gray-300">
+                        <li>
+                            <a href="#" class="flex items-center px-5 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-gray-900 dark:hover:text-white">
+                                <svg class="w-3.5 h-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
+                                    <path d="M14.419 10.581a3.564 3.564 0 0 0-2.574 1.1l-4.756-2.49a3.54 3.54 0 0 0 .072-.71 3.55 3.55 0 0 0-.043-.428L11.67 6.1a3.56 3.56 0 1 0-.831-2.265c.006.143.02.286.043.428L6.33 6.218a3.573 3.573 0 1 0-.175 4.743l4.756 2.491a3.58 3.58 0 1 0 3.508-2.871Z"/>
+                                </svg>
+                                <span class="text-sm font-medium">Share</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex items-center px-5 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-gray-900 dark:hover:text-white">
+                                <svg class="w-3.5 h-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M5 20h10a1 1 0 0 0 1-1v-5H4v5a1 1 0 0 0 1 1Z"/>
+                                    <path d="M18 7H2a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2v-3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2Zm-1-2V2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v3h14Z"/>
+                                </svg>
+                                <span class="text-sm font-medium">Print</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex items-center px-5 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-gray-900 dark:hover:text-white">
+                                <svg class="w-3.5 h-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z"/>
+                                    <path d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/>
+                                </svg>
+                                <span class="text-sm font-medium">Save</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="flex items-center px-5 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-gray-900 dark:hover:text-white">
+                                <svg class="w-3.5 h-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20">
+                                    <path d="M5 9V4.13a2.96 2.96 0 0 0-1.293.749L.879 7.707A2.96 2.96 0 0 0 .13 9H5Zm11.066-9H9.829a2.98 2.98 0 0 0-2.122.879L7 1.584A.987.987 0 0 0 6.766 2h4.3A3.972 3.972 0 0 1 15 6v10h1.066A1.97 1.97 0 0 0 18 14V2a1.97 1.97 0 0 0-1.934-2Z"/>
+                                    <path d="M11.066 4H7v5a2 2 0 0 1-2 2H0v7a1.969 1.969 0 0 0 1.933 2h9.133A1.97 1.97 0 0 0 13 18V6a1.97 1.97 0 0 0-1.934-2Z"/>
+                                </svg>
+                                <span class="text-sm font-medium">Copy</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <button type="button" data-dial-toggle="speed-dial-menu-dropdown" aria-controls="speed-dial-menu-dropdown" aria-expanded="false" class="flex items-center justify-center ml-auto text-white bg-blue-700 rounded-full w-14 h-14 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:focus:ring-blue-800">
+                    <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 3">
+                        <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z"/>
+                    </svg>
+                    <span class="sr-only">Open actions menu</span>
+                </button>
+            </div>
+        </div>
     </div>
 </main>
 

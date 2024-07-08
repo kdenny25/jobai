@@ -5,8 +5,7 @@ import os, sys
 from datetime import datetime
 import math
 import spacy
-
-from dependencies import Database, Resume
+from dependencies import Database, Resume, Analysis
 from apps.resume_builder.routes import resume_builder
 
 db = Database()
@@ -25,6 +24,8 @@ app.register_blueprint(resume_builder)
 # csrf protection
 csrf = CSRFProtect(app)
 app.secret_key = b'_53oi3uriq9pifpff;apl'
+
+
 
 @app.route('/')
 def hello_world():  # put application's code here
@@ -111,6 +112,28 @@ def archive_job():
 
 
     return redirect('/applications')
+
+@app.post('/applications/analysis')
+def app_analysis():
+    resume = Resume(0)
+
+
+    date_applied = request.form.get('date_applied')
+    job_title = request.form.get('job_title')
+    company_name = request.form.get('company_name')
+    company_website = request.form.get('company_website')
+    salary_low = request.form.get('salary_low')
+    salary_low = None if salary_low == '' else float(salary_low)
+    salary_high = request.form.get('salary_high')
+    salary_high = None if salary_high == '' else float(salary_high)
+    job_description = request.form.get('job_description')
+
+    analyze = Analysis(resume, job_description)
+
+    app_key_phrases = analyze.key_phrase_counts()
+    print(app_key_phrases)
+
+    return render_template('application_analysis.html', app_key_phrases=app_key_phrases)
 
 if __name__ == '__main__':
     app.run()

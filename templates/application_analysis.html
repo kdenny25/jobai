@@ -1,0 +1,100 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div class="p-0 mt-14"> <!-- Adjust this to accommodate the sidebar -->
+<header class="bg-white shadow">
+    <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        <h1 class="text-3xl font-bold tracking-tight text-gray-900">Application Analysis</h1>
+    </div>
+</header>
+
+<main>
+
+    <div class="flex justify-center">
+        <div class="flex flex-wrap gap-3 py-6 sm:pr-6 lg:pr-8">
+            <div class="block">
+                <div class="p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+                    <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Key-phrase Comparison</h5>
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <div class="px-4 py-6 sm:grid sm:grid-cols-5 sm:gap-4 sm:px-0">
+                                <div class="grid col-span-6 relative overflow-x-auto">
+                                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                        <tr>
+                                          <th class="px-6 py-3">Key Phrases</th>
+                                          <th class="px-6 py-3">Job Listing</th>
+                                          <th class="px-6 py-3">Resume</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for keyphrase, value in app_key_phrases.items() %}
+                                        {% if value[0] <= value[1] %}
+                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                              <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ keyphrase }}</td>
+                                              <td class="px-6 py-4">{{ value[0] }}</td>
+                                              <td class="px-6 py-4">{{ value[1] }}</td>
+                                            </tr>
+                                        {% else %}
+                                            <tr class="bg-red-400 border-b dark:bg-red-950  dark:border-gray-700">
+                                              <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ keyphrase }}</td>
+                                              <td class="px-6 py-4">{{ value[0] }}</td>
+                                              <td class="px-6 py-4">{{ value[1] }}</td>
+                                            </tr>
+                                        {% endif %}
+                                    {% endfor %}
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="block w-52">
+                <div class="p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+                    <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Key-phrase Comparison</h5>
+                    <div class="flex items-center justify-between mb-4">
+                        <div>
+                            <div class="px-4 py-6 sm:grid sm:grid-cols-5 sm:gap-4 sm:px-0">
+                                <div class="grid col-span-6 relative overflow-x-auto">
+                                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                        <tr>
+                                          <th class="px-6 py-3">Key Phrases</th>
+                                          <th class="px-6 py-3">Job Listing</th>
+                                          <th class="px-6 py-3">Resume</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for keyphrase, value in app_key_phrases.items() %}
+                                        {% if value[0] <= value[1] %}
+                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                              <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ keyphrase }}</td>
+                                              <td class="px-6 py-4">{{ value[0] }}</td>
+                                              <td class="px-6 py-4">{{ value[1] }}</td>
+                                            </tr>
+                                        {% else %}
+                                            <tr class="bg-red-400 border-b dark:bg-red-950  dark:border-gray-700">
+                                              <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ keyphrase }}</td>
+                                              <td class="px-6 py-4">{{ value[0] }}</td>
+                                              <td class="px-6 py-4">{{ value[1] }}</td>
+                                            </tr>
+                                        {% endif %}
+                                    {% endfor %}
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+{% endblock %}
+
+{% block scripts %}
+</div>
+{% endblock %}
