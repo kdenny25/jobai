@@ -13,48 +13,38 @@
 
     <div class="flex justify-center">
         <div class="flex flex-wrap gap-3 py-6 sm:pr-6 lg:pr-8">
-            <div class="block">
+            <div class="grid grid-flow-rows auto-rows-max gap-3 max-w-md">
                 <div class="p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-                    <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Key-phrase Comparison</h5>
-                    <div class="flex items-center justify-between mb-4">
+                    <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Job Match Rating</h5>
+                    <div class="flex items-center justify-center">
                         <div>
-                            <div class="px-4 py-6 sm:grid sm:grid-cols-5 sm:gap-4 sm:px-0">
-                                <div class="grid col-span-6 relative overflow-x-auto">
-                                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                        <tr>
-                                          <th class="px-6 py-3">Key Phrases</th>
-                                          <th class="px-6 py-3">Job Listing</th>
-                                          <th class="px-6 py-3">Resume</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% for keyphrase, value in app_key_phrases.items() %}
-                                        {% if value[0] <= value[1] %}
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                              <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ keyphrase }}</td>
-                                              <td class="px-6 py-4">{{ value[0] }}</td>
-                                              <td class="px-6 py-4">{{ value[1] }}</td>
-                                            </tr>
-                                        {% else %}
-                                            <tr class="bg-red-400 border-b dark:bg-red-950  dark:border-gray-700">
-                                              <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ keyphrase }}</td>
-                                              <td class="px-6 py-4">{{ value[0] }}</td>
-                                              <td class="px-6 py-4">{{ value[1] }}</td>
-                                            </tr>
-                                        {% endif %}
-                                    {% endfor %}
-                                    </table>
-                                </div>
+                            <div id="match-rating"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+                    <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Job Details</h5>
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="grid grid-rows-auto px-4 py-6 sm:gap-4 sm:px-0 text-gray-900 dark:text-white">
+                                <p>{{ job_details['job_title'] }}</p>
+                                <p>{{ job_details['company_name'] }}</p>
+                                {% if job_details['company_website'] != '' %}
+                                    <p>{{ job_details['company_website'] }}</p>
+                                {% endif %}
+                                {% if job_details['salary_high'] != '' %}
+                                    <p>{{ job_details['salary_low'] }} - {{ job_details['salary_high'] }}</p>
+                                {% endif %}
+                                <span>{{ job_details['job_description'] }}</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="block w-52">
+            <div class="block max-w-lg">
                 <div class="p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
                     <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Key-phrase Comparison</h5>
-                    <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center justify-between">
                         <div>
                             <div class="px-4 py-6 sm:grid sm:grid-cols-5 sm:gap-4 sm:px-0">
                                 <div class="grid col-span-6 relative overflow-x-auto">
@@ -96,5 +86,57 @@
 {% endblock %}
 
 {% block scripts %}
+<script>
+        var options = {
+          series: [76, 67, 61, 90],
+          chart: {
+          height: 390,
+          type: 'radialBar',
+        },
+        plotOptions: {
+          radialBar: {
+            offsetY: 0,
+            startAngle: 0,
+            endAngle: 270,
+            hollow: {
+              margin: 5,
+              size: '30%',
+              background: 'transparent',
+              image: undefined,
+            },
+            dataLabels: {
+              name: {
+                show: false,
+              },
+              value: {
+                show: false,
+              }
+            },
+            barLabels: {
+              enabled: true,
+              useSeriesColors: true,
+              margin: 8,
+              fontSize: '16px',
+              formatter: function(seriesName, opts) {
+                return seriesName + ":  " + opts.w.globals.series[opts.seriesIndex]
+              },
+            },
+          }
+        },
+        colors: ['#1ab7ea', '#0084ff', '#39539E', '#0077B5'],
+        labels: ['Vimeo', 'Messenger', 'Facebook', 'LinkedIn'],
+        responsive: [{
+          breakpoint: 480,
+          options: {
+            legend: {
+                show: false
+            }
+          }
+        }]
+        };
+
+        var chart = new ApexCharts(document.querySelector("#match-rating"), options);
+        chart.render();
+</script>
 </div>
 {% endblock %}

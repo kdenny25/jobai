@@ -128,12 +128,22 @@ def app_analysis():
     salary_high = None if salary_high == '' else float(salary_high)
     job_description = request.form.get('job_description')
 
+    job_details = {
+        "date_applied": date_applied,
+        "job_title": job_title,
+        "company_name": company_name,
+        "company_website": company_website,
+        "salary_low": salary_low,
+        "salary_high": salary_high,
+        "job_description": job_description
+    }
+
     analyze = Analysis(resume, job_description)
 
     app_key_phrases = analyze.key_phrase_counts()
-    print(app_key_phrases)
+    #print(app_key_phrases)
 
-    return render_template('application_analysis.html', app_key_phrases=app_key_phrases)
+    return render_template('application_analysis.html', app_key_phrases=app_key_phrases, job_details=job_details)
 
 if __name__ == '__main__':
     app.run()
