@@ -5,7 +5,7 @@
 <div class="p-0 mt-14"> <!-- Adjust this to accommodate the sidebar -->
 <header class="bg-white shadow">
     <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        <h1 class="text-3xl font-bold tracking-tight text-gray-900">Application Analysis</h1>
+        <h1 class="text-3xl font-bold tracking-tight text-gray-900">{{ job_details['company_name'] }} / {{ job_details['job_title'] }}</h1>
     </div>
 </header>
 
@@ -13,48 +13,85 @@
 
     <div class="flex justify-center">
         <div class="flex flex-wrap gap-3 py-6 sm:pr-6 lg:pr-8">
-            <div class="block">
+            <div class="grid grid-flow-rows auto-rows-max gap-3 max-w-xl">
                 <div class="p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
-                    <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Key-phrase Comparison</h5>
-                    <div class="flex items-center justify-between mb-4">
+                    <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Job Match Rating</h5>
+                    <div class="flex items-center justify-center">
                         <div>
-                            <div class="px-4 py-6 sm:grid sm:grid-cols-5 sm:gap-4 sm:px-0">
-                                <div class="grid col-span-6 relative overflow-x-auto">
-                                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                        <tr>
-                                          <th class="px-6 py-3">Key Phrases</th>
-                                          <th class="px-6 py-3">Job Listing</th>
-                                          <th class="px-6 py-3">Resume</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% for keyphrase, value in app_key_phrases.items() %}
-                                        {% if value[0] <= value[1] %}
-                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                              <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ keyphrase }}</td>
-                                              <td class="px-6 py-4">{{ value[0] }}</td>
-                                              <td class="px-6 py-4">{{ value[1] }}</td>
-                                            </tr>
-                                        {% else %}
-                                            <tr class="bg-red-400 border-b dark:bg-red-950  dark:border-gray-700">
-                                              <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ keyphrase }}</td>
-                                              <td class="px-6 py-4">{{ value[0] }}</td>
-                                              <td class="px-6 py-4">{{ value[1] }}</td>
-                                            </tr>
-                                        {% endif %}
-                                    {% endfor %}
-                                    </table>
-                                </div>
-                            </div>
+                            <div id="match-rating"></div>
                         </div>
                     </div>
                 </div>
+                <div class="p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+                    <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
+                        <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="default-tab" data-tabs-toggle="#default-tab-content" role="tablist">
+                            <li class="me-2" role="presentation">
+                                <button class="inline-block p-4 border-b-2 rounded-t-lg" id="profile-tab" data-tabs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Searchability</button>
+                            </li>
+                            <li class="me-2" role="presentation">
+                                <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="dashboard-tab" data-tabs-target="#dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Soft Skills</button>
+                            </li>
+                            <li class="me-2" role="presentation">
+                                <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="settings-tab" data-tabs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">Hard Skills</button>
+                            </li>
+                            <li role="presentation">
+                                <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="contacts-tab" data-tabs-target="#contacts" type="button" role="tab" aria-controls="contacts" aria-selected="false">Contacts</button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="default-tab-content">
+                        <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <p class="text-sm text-gray-500 dark:text-gray-400">This is some placeholder content the <strong class="font-medium text-gray-800 dark:text-white">Contacts tab's associated content</strong>. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
+                        </div>
+                        <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+                            <div id="soft-skills" data-accordion="collapse" data-active-classes="bg-white dark:bg-gray-800 text-gray-800 dark:text-white" data-inactive-classes="text-gray-500 dark:text-gray-400">
+                                {% for keyphrase, value in app_key_phrases.items() %}
+                                    <h2 id="soft-skills-heading-{{ loop.index }}">
+                                        <button type="button" class="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400 gap-3" data-accordion-target="#soft-skills-body-{{ loop.index }}" aria-expanded="false" aria-controls="soft-skills-body-{{ loop.index }}">
+                                          <span>{{ keyphrase }}</span>
+                                          <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+                                          </svg>
+                                        </button>
+                                    </h2>
+                                    <div id="soft-skills-body-{{ loop.index }}" class="hidden" aria-labelledby="soft-skills-heading-{{ loop.index }}">
+                                        <div class="py-5 border-b border-gray-200 dark:border-gray-700">
+                                            <p class="mb-2 text-gray-500 dark:text-gray-400">Flowbite is an open-source library of interactive components built on top of Tailwind CSS including buttons, dropdowns, modals, navbars, and more.</p>
+                                            <p class="text-gray-500 dark:text-gray-400">Check out this guide to learn how to <a href="/docs/getting-started/introduction/" class="text-blue-600 dark:text-blue-500 hover:underline">get started</a> and start developing websites even faster with components on top of Tailwind CSS.</p>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+                            <div id="accordion-flush" data-accordion="collapse" data-active-classes="bg-white dark:bg-gray-900 text-gray-800 dark:text-white" data-inactive-classes="text-gray-500 dark:text-gray-400">
+                                <h2 id="accordion-flush-heading-1">
+                                    <button type="button" class="flex items-center justify-between w-full py-5 font-medium rtl:text-right text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400 gap-3" data-accordion-target="#accordion-flush-body-1" aria-expanded="false" aria-controls="accordion-flush-body-1">
+                                      <span>What is Flowbite?</span>
+                                      <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+                                      </svg>
+                                    </button>
+                                </h2>
+                                <div id="accordion-flush-body-1" class="hidden" aria-labelledby="accordion-flush-heading-1">
+                                    <div class="py-5 border-b border-gray-200 dark:border-gray-700">
+                                        <p class="mb-2 text-gray-500 dark:text-gray-400">Flowbite is an open-source library of interactive components built on top of Tailwind CSS including buttons, dropdowns, modals, navbars, and more.</p>
+                                        <p class="text-gray-500 dark:text-gray-400">Check out this guide to learn how to <a href="/docs/getting-started/introduction/" class="text-blue-600 dark:text-blue-500 hover:underline">get started</a> and start developing websites even faster with components on top of Tailwind CSS.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="contacts" role="tabpanel" aria-labelledby="contacts-tab">
+                            <p class="text-sm text-gray-500 dark:text-gray-400">This is some placeholder content the <strong class="font-medium text-gray-800 dark:text-white">Contacts tab's associated content</strong>. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
+                        </div>
+                    </div>
+
+                </div>
             </div>
-            <div class="block w-52">
+            <div class="block max-w-lg">
                 <div class="p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
                     <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Key-phrase Comparison</h5>
-                    <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center justify-between">
                         <div>
                             <div class="px-4 py-6 sm:grid sm:grid-cols-5 sm:gap-4 sm:px-0">
                                 <div class="grid col-span-6 relative overflow-x-auto">
@@ -96,5 +133,57 @@
 {% endblock %}
 
 {% block scripts %}
+<script>
+        var options = {
+          series: [76, 67, 61, 90],
+          chart: {
+          height: 390,
+          type: 'radialBar',
+        },
+        plotOptions: {
+          radialBar: {
+            offsetY: 0,
+            startAngle: 0,
+            endAngle: 270,
+            hollow: {
+              margin: 5,
+              size: '30%',
+              background: 'transparent',
+              image: undefined,
+            },
+            dataLabels: {
+              name: {
+                show: false,
+              },
+              value: {
+                show: false,
+              }
+            },
+            barLabels: {
+              enabled: true,
+              useSeriesColors: true,
+              margin: 8,
+              fontSize: '16px',
+              formatter: function(seriesName, opts) {
+                return seriesName + ":  " + opts.w.globals.series[opts.seriesIndex]
+              },
+            },
+          }
+        },
+        colors: ['#1ab7ea', '#0084ff', '#39539E', '#0077B5'],
+        labels: ['Searchability', 'Hard Skills', 'Soft Skills', 'LinkedIn'],
+        responsive: [{
+          breakpoint: 480,
+          options: {
+            legend: {
+                show: false
+            }
+          }
+        }]
+        };
+
+        var chart = new ApexCharts(document.querySelector("#match-rating"), options);
+        chart.render();
+</script>
 </div>
 {% endblock %}

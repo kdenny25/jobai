@@ -1,6 +1,11 @@
 import spacy
 from spacy.matcher import Matcher
+from openai import OpenAI
+from dotenv import dotenv_values
+import json
 import re
+
+config = dotenv_values(".env")
 
 # nlp data
 nlp = spacy.load('en_core_web_md')
@@ -17,19 +22,31 @@ patterns = [
     ]
 
 class Analysis:
-    def __init__(self, resume, job_listing):
+    def __init__(self, resume, job_description):
         self.resume = resume
         self.merged_resume = self.combine_resume()
-        self.job_listing = job_listing
+        self.job_description = job_description
+        self.client = OpenAI(
+            api_key=config['AI_KEY']
+        )
+        self.tokens_used = 0
+        self.hard_skills = {}
+        self.soft_skills = {}
 
-    def key_phrase_counts(self):
-        listing_keyphrases = self.keyphrases(self.job_listing)
+        self.parse_job_description()
+        self.phrase_counts(self.hard_skills)
+        self.phrase_counts(self.soft_skills)
+        self.highlights = self.gen_highlights()
 
-        for keyphrase, value in listing_keyphrases.items():
+    def phrase_counts(self, skill_set):
+        """Counts the number of skills that popup in the resume"""
+
+        for keyphrase, value in skill_set.items():
             resume_count = len(re.findall(keyphrase, self.merged_resume))
-            listing_keyphrases[keyphrase] = (value, resume_count)
+            # if the resume count is less than the count
+            skill_set[keyphrase] = (value, resume_count)
 
-        return listing_keyphrases
+
 
     def combine_resume(self):
         # merge resume
@@ -42,6 +59,48 @@ class Analysis:
             merged_resume = f"{merged_resume} {edu['degree']} {edu['activities']} {edu['description']}"
 
         return merged_resume
+
+    def parse_job_description(self):
+        """Pulls a list of hard and soft skills from a job description"""
+        response = self.client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": "You will create a list of soft skills as soft_skills and "
+                                              "hard skills as hard_skills each not exceeding 4 words without hyphens"
+                                              "and with counts of occurrences from "
+                                              "the supplied user text then output the lists in JSON format "
+                                              },
+                {"role": "user", "content": f"{self.job_description}"}
+            ]
+        )
+        print(response.choices[0].message.content)
+        resp_dict = json.loads(response.choices[0].message.content)
+        self.tokens_used += response.usage.total_tokens
+        self.hard_skills = resp_dict['hard_skills']
+        self.soft_skills = resp_dict['soft_skills']
+
+    def gen_highlights(self):
+        """Generates two highlights relating to the job listing skill and users resume"""
+        skill_list = list(self.soft_skills.keys()) + list(self.hard_skills.keys())
+        job_list = [job['job_title'] for job in self.resume.work_history]
+
+        response = self.client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": "You will be provided a list of job titles and a list of skills. For each item in the "
+                                              "list of skills create two examples of good job highlights using "
+                                              "the skill in the examples. "
+                                              "Relate the job highlight to the most relevant job titles and include "
+                                              "the skill in the highlight. Return the responses in JSON "
+                                              "format where the skill item is the key and a list of two examples are "
+                                              "the values"},
+                {"role": "user", "content": f"Resume: {job_list} \n"
+                                            f"Skills: {skill_list}"}
+            ]
+        )
+        print(response.choices[0].message.content)
+        resp_dict = json.loads(response.choices[0].message.content)
+        return resp_dict
 
     def keyphrases(self, input):
         nlp = spacy.load('en_core_web_lg')
