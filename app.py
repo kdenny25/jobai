@@ -139,11 +139,18 @@ def app_analysis():
     }
 
     analyze = Analysis(resume, job_description)
+    highlights = analyze.highlights
 
-    app_key_phrases = analyze.hard_skills
+    app_data = {
+        "job_details": job_details,
+        "hard_skills": analyze.hard_skills,
+        "soft_skills": analyze.soft_skills,
+        "highlights": highlights
+    }
+
     #print(app_key_phrases)
 
-    return render_template('application_analysis.html', app_key_phrases=app_key_phrases, job_details=job_details)
+    return render_template('application_analysis.html', app_data=app_data)
 
 if __name__ == '__main__':
     app.run()
