@@ -60,21 +60,42 @@ class Analysis:
 
         return merged_resume
 
+    def check_json(self, json_string:str):
+
+        try:
+            to_dict = json.loads(json_string)
+
+        except:
+            start = json_string.find("{")
+            end = 0
+            for idx in range(len(json_string)+1):
+                if json_string[-idx] == "}":
+                    end = -(idx - 1)
+                    break
+
+            to_dict = json.loads(json_string[start:end])
+
+        return to_dict
+
+
     def parse_job_description(self):
         """Pulls a list of hard and soft skills from a job description"""
         response = self.client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": "You will create a list of soft skills as soft_skills and "
-                                              "hard skills as hard_skills each not exceeding 4 words without hyphens"
+                                              "hard skills as hard_skills each key phrase should not exceed 4 "
+                                              "words and no hyphens"
                                               "and with counts of occurrences from "
                                               "the supplied user text then output the lists in JSON format "
                                               },
                 {"role": "user", "content": f"{self.job_description}"}
             ]
         )
-        print(response.choices[0].message.content)
-        resp_dict = json.loads(response.choices[0].message.content)
+        content = response.choices[0].message.content
+        print(content)
+
+        resp_dict = self.check_json(content)
         self.tokens_used += response.usage.total_tokens
         self.hard_skills = resp_dict['hard_skills']
         self.soft_skills = resp_dict['soft_skills']
@@ -98,8 +119,10 @@ class Analysis:
                                             f"Skills: {skill_list}"}
             ]
         )
-        print(response.choices[0].message.content)
-        resp_dict = json.loads(response.choices[0].message.content)
+        content = response.choices[0].message.content
+
+        print(content)
+        resp_dict = self.check_json(content)
         return resp_dict
 
     def keyphrases(self, input):

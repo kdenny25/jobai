@@ -1295,6 +1295,14 @@ input[type="range"]::-ms-fill-lower {
   width: 100%;
 }
 
+.w-\[400px\] {
+  width: 400px;
+}
+
+.w-\[600px\] {
+  width: 600px;
+}
+
 .min-w-0 {
   min-width: 0px;
 }
