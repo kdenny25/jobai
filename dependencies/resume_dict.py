@@ -90,13 +90,13 @@ class Resume:
 
         db.add_resume(self.userid, resume)
 
-    def add_work_history(self,job_title, company_name, description, start_month, start_year,
+    def add_work_history(self,job_title, company_name, summary, description, start_month, start_year,
                          end_month, end_year, currently_working):
 
-        split_description = description.splitlines() # split description lines to apply our own formatting
-        split_description = [self.remove_leading_char(desc) for desc in split_description] # remove leading styling
-        split_description = [self.remove_ending_char(desc) for desc in
-                             split_description] # remove ending to apply consistent endings
+        split_highlights = description.splitlines() # split description lines to apply our own formatting
+        split_highlights = [self.remove_leading_char(desc) for desc in split_highlights] # remove leading styling
+        split_highlights = [self.remove_ending_char(desc) for desc in
+                             split_highlights] # remove ending to apply consistent endings
 
         work_history = {
             "job_title": job_title,
@@ -110,19 +110,21 @@ class Resume:
                 "year": end_year,
             },
             "currently_working": currently_working,
-            "description": description,
-            "description_split": split_description
+            "summary": summary,
+            "highlights": description,
+            "highlights_split": split_highlights
         }
 
         self.work_history.append(work_history)
         self.update()
 
-    def update_work_history(self, index, job_title, company_name, description, start_month, start_year,
+    def update_work_history(self, index, job_title, company_name, summary, description, start_month, start_year,
                          end_month, end_year, currently_working):
-        split_description = description.splitlines() # split description lines to apply our own formatting
-        split_description = [self.remove_leading_char(desc) for desc in split_description] # remove leading styling
-        split_description = [self.remove_ending_char(desc) for desc in
-                             split_description]  # remove ending to apply consistent endings
+
+        split_highlights = description.splitlines() # split description lines to apply our own formatting
+        split_highlights = [self.remove_leading_char(desc) for desc in split_highlights] # remove leading styling
+        split_highlights = [self.remove_ending_char(desc) for desc in
+                             split_highlights]  # remove ending to apply consistent endings
 
         work_history = {
             "job_title": job_title,
@@ -136,8 +138,9 @@ class Resume:
                 "year": end_year,
             },
             "currently_working": currently_working,
-            "description": description,
-            "description_split": split_description
+            "summary": summary,
+            "highlights": description,
+            "highlights_split": split_highlights
         }
 
         self.work_history[index] = work_history

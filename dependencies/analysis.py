@@ -64,7 +64,7 @@ class Analysis:
         soft_skills_total = 0
         soft_skills_actual = 0
         for item, value in self.soft_skills.items():
-            print(value)
+
             s_total = value[0]/2 + 1
             if value[1] > value[0]:
                 s_actual = s_total
@@ -88,7 +88,7 @@ class Analysis:
         merged_resume = (f"{self.resume.summary} ")
 
         for wh in self.resume.work_history:
-            merged_resume = f"{merged_resume} {wh['job_title']} {wh['description']}"
+            merged_resume = f"{merged_resume} {wh['job_title']} {wh['summary']} {wh['highlights']}"
 
         for edu in self.resume.education:
             merged_resume = f"{merged_resume} {edu['degree']} {edu['activities']} {edu['description']}"

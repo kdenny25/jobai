@@ -82,7 +82,7 @@ def update_experience():
 
     resume.update_work_history(index=index, job_title=job_title, company_name=company_name, currently_working=current,
                                start_month=start_month, start_year=start_year, end_month=end_month, end_year=end_year,
-                               description=description)
+                               summary='', description=description)
 
     return redirect("/my_resume")
 
@@ -102,7 +102,7 @@ def add_experience():
 
     resume.add_work_history(job_title=job_title, company_name=company_name, currently_working=current,
                                start_month=start_month, start_year=start_year, end_month=end_month, end_year=end_year,
-                               description=description)
+                               summary='', description=description)
 
     return redirect("/my_resume")
 

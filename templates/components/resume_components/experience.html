@@ -1,0 +1,110 @@
+<div id="work-history" data-accordion="collapse">
+    {% for experience in app_data['resume']['work_history'] %}
+        <h2 id="work-history-heading-{{ loop.index }}">
+            <button type="button" class="flex text-left items-center justify-between w-full p-5 font-medium text-gray-500 border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-600  hover:bg-gray-100 gap-3" data-accordion-target="#work-history-body-{{ loop.index }}" aria-expanded="false" aria-controls="work-history-body-{{ loop.index }}">
+                <div class="grid grid-cols-1">
+                    <p class="font-medium text-gray-500 dark:text-gray-300">{{ experience['job_title'] }}</p>
+                    <p class="font-normal text-gray-600 dark:text-gray-400">{{ experience['company_name'] }}</p>
+                </div>
+                <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+                </svg>
+            </button>
+        </h2>
+        <div id="work-history-body-{{ loop.index }}" class="hidden" aria-labelledby="work-history-heading-{{ loop.index }}">
+            <div class="grid grid-cols-2 gap-4 p-5 border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
+                <!-- Store index value -->
+                <input type="hidden" name="ex_index" id="ex_index" value="">
+                <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}" />
+                <div class="col-span-1">
+                    <div class="col-span-1">
+                        <label for="ex_job_title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
+                        <input type="text" name="ex_job_title" id="ex_job_title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Job title" value="{{ experience['job_title'] }}" required>
+                        <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}" />
+                    </div>
+                </div>
+                <div class="col-span-1">
+                    <div class="col-span-1">
+                        <label for="ex_company" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Company Name</label>
+                        <input type="text" name="ex_company" id="ex_company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Company" value="{{ experience['company_name'] }}" required>
+                        <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}" />
+                    </div>
+                </div>
+
+                <div class="col-span-1">
+                    <label for="ex_start" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Start Date</label>
+                    <div class="grid grid-cols-2 gap-1">
+                        <select id="ex_start" name="ex_start_month" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            <option selected>Month</option>
+                            {% for month in months %}
+                                <option value="{{ month }}">{{ month }}</option>
+                            {% endfor %}
+                        </select>
+                        <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}" />
+                        <select id="ex_start" name="ex_start_year" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            <option selected>Year</option>
+                            {% for year in years %}
+                                <option value="{{ year }}">{{ year }}</option>
+                            {% endfor %}
+                        </select>
+                        <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}" />
+                    </div>
+                </div>
+                <div class="col-span-1">
+                    <label for="ex_end" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">End Date</label>
+                    <div class="grid grid-cols-2 gap-1">
+                        <select id="ex_end" name="ex_end_month" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            <option selected>Month</option>
+                            {% for month in months %}
+                                <option value="{{ month }}">{{ month }}</option>
+                            {% endfor %}
+                        </select>
+                        <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}" />
+                        <select id="ex_end" name="ex_end_year" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            <option selected>Year</option>
+                            {% for year in years %}
+                                <option value="{{ year }}">{{ year }}</option>
+                            {% endfor %}
+                        </select>
+                        <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}" />
+                    </div>
+                </div>
+                <div class="col-span-2">
+                    <input id="ex_current" name="ex_current" type="checkbox" value="" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                    <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}" />
+                    <label for="ex_current" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">I currently work here.</label>
+                </div>
+                <div class="col-span-2">
+                    <label for="ex_summary" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Summary</label>
+                    <textarea id="ex_summary" name="ex_summary" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Type description here" >{{ experience['description'] }}</textarea>
+                    <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}" />
+                </div>
+                <div class="col-span-2 w-full">
+                    <p class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Highlights</p>
+                    {% for highlight in experience["highlights_split"] %}
+                        <div class="flex py-2">
+                            <div class="flex-auto grid grid-rows-2">
+                                <button type="button" class="px-2 rounded-tl-md text-sm font-medium text-gray-900 bg-white border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
+                                    <i class="material-icons w-8 h-6">
+                                        keyboard_arrow_up
+                                    </i>
+                                </button>
+                                <button type="button" class="px-2 rounded-bl-md text-sm font-medium text-gray-900 bg-white border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
+                                     <i class="material-icons w-8 h-6">
+                                        keyboard_arrow_down
+                                    </i>
+                                </button>
+                            </div>
+                            <textarea id="ex_summary" name="ex_summary" rows="3" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Type highlight here" >{{ highlight }}</textarea>
+                            <button type="button" class="px-2 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-r-lg  hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
+                                <i class="material-icons w-8 h-6">
+                                    delete
+                                </i>
+                            </button>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>

@@ -13,7 +13,7 @@
 
     <div class="flex justify-center">
         <div class="flex flex-wrap gap-3 py-6 sm:pr-6 lg:pr-8">
-            <div class="flex flex-col grow w-[600px]">
+            <div class="flex flex-col grow w-[600px] max-w-[600px]">
                 <div class="p-4 w-full bg-white m-3 border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
                     <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Job Match Rating</h5>
                     <div class="flex items-center justify-center">
@@ -26,25 +26,27 @@
                     <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
                         <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="default-tab" data-tabs-toggle="#default-tab-content" role="tablist">
                             <li class="me-2" role="presentation">
-                                <button class="inline-block p-4 border-b-2 rounded-t-lg" id="profile-tab" data-tabs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Searchability</button>
+                                <button class="inline-block p-4 border-b-2 rounded-t-lg" id="searchability-tab" data-tabs-target="#searchability-content" type="button" role="tab" aria-controls="searchability-content" aria-selected="false">Searchability</button>
                             </li>
                             <li class="me-2" role="presentation">
-                                <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="dashboard-tab" data-tabs-target="#dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Soft Skills</button>
+                                <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="soft-skills-tab" data-tabs-target="#soft-skills-content" type="button" role="tab" aria-controls="soft-skills-content" aria-selected="false">Soft Skills</button>
                             </li>
                             <li class="me-2" role="presentation">
-                                <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="settings-tab" data-tabs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">Hard Skills</button>
+                                <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="settings-tab" data-tabs-target="#hard-skills-content" type="button" role="tab" aria-controls="hard-skills-content" aria-selected="false">Hard Skills</button>
                             </li>
                             <li role="presentation">
-                                <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="contacts-tab" data-tabs-target="#contacts" type="button" role="tab" aria-controls="contacts" aria-selected="false">Contacts</button>
+                                <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="formatting-tab" data-tabs-target="#formatting-content" type="button" role="tab" aria-controls="formatting-content" aria-selected="false">Formatting</button>
                             </li>
                         </ul>
                     </div>
-                    <div id="default-tab-content h-96">
-                        <div class="hidden rounded-lg bg-gray-50 dark:bg-gray-800" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <div id="default-tab-content h-96 overflow-auto">
+                        <div class="hidden rounded-lg bg-gray-50 dark:bg-gray-800" id="searchability-content" role="tabpanel" aria-labelledby="searchability-tab">
                             <p class="text-sm text-gray-500 dark:text-gray-400">This is some placeholder content the <strong class="font-medium text-gray-800 dark:text-white">Contacts tab's associated content</strong>. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
                         </div>
-                        <div class="hidden rounded-lg bg-gray-50 dark:bg-gray-800" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
-                            <span>Soft skills are interpersonal and behavioral abilities like communication, teamwork, and problem-solving. They are important on a resume because they show how well a candidate can work with others and adapt to various situations. Highlighting soft skills helps employers gauge a candidate's fit within the company culture and their potential for collaboration and leadership.</span>
+                        <div class="hidden rounded-lg bg-gray-50 dark:bg-gray-800" id="soft-skills-content" role="tabpanel" aria-labelledby="soft-skills-tab">
+                            <div class="p-4">
+                                <p class="text-sm text-gray-500 dark:text-gray-400">Soft skills are interpersonal and behavioral abilities like communication, teamwork, and problem-solving. They are important on a resume because they show how well a candidate can work with others and adapt to various situations. Highlighting soft skills helps employers gauge a candidate's fit within the company culture and their potential for collaboration and leadership.</p>
+                            </div>
                             <div id="soft-skills" data-accordion="collapse" data-active-classes="bg-white dark:bg-gray-800 text-gray-800 dark:text-white" data-inactive-classes="text-gray-500 dark:text-gray-400">
                                 {% for keyphrase, value in app_data['soft_skills'].items() %}
                                     <h2 id="soft-skills-heading-{{ loop.index }}">
@@ -63,8 +65,10 @@
                                 {% endfor %}
                             </div>
                         </div>
-                        <div class="hidden rounded-lg bg-gray-50 dark:bg-gray-800" id="settings" role="tabpanel" aria-labelledby="settings-tab">
-                            <span>Hard skills are specific, teachable abilities acquired through education or experience, such as programming, statistical analysis, and project management. They are important on a resume because they demonstrate a candidate's technical proficiency and ability to perform job-specific tasks. Listing hard skills helps employers quickly assess qualifications and match applicants to job requirements.</span>
+                        <div class="hidden rounded-lg bg-gray-50 dark:bg-gray-800" id="hard-skills-content" role="tabpanel" aria-labelledby="hard-skills-tab">
+                            <div class="p-4">
+                                <p class="text-sm text-gray-500 dark:text-gray-400">Hard skills are specific, teachable abilities acquired through education or experience, such as programming, statistical analysis, and project management. They are important on a resume because they demonstrate a candidate's technical proficiency and ability to perform job-specific tasks. Listing hard skills helps employers quickly assess qualifications and match applicants to job requirements.</p>
+                            </div>
                             <div id="hard-skills" data-accordion="collapse" data-active-classes="bg-white dark:bg-gray-800 text-gray-800 dark:text-white" data-inactive-classes="text-gray-500 dark:text-gray-400">
                                 {% for keyphrase, value in app_data['hard_skills'].items() %}
                                     <h2 id="hard-skills-heading-{{ loop.index }}">
@@ -82,14 +86,14 @@
                                 {% endfor %}
                             </div>
                         </div>
-                        <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="contacts" role="tabpanel" aria-labelledby="contacts-tab">
+                        <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="formatting-content" role="tabpanel" aria-labelledby="formatting-tab">
                             <p class="text-sm text-gray-500 dark:text-gray-400">This is some placeholder content the <strong class="font-medium text-gray-800 dark:text-white">Contacts tab's associated content</strong>. Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to control the content visibility and styling.</p>
                         </div>
                     </div>
 
                 </div>
             </div>
-            <div class="flex flex-col max-w-3xl">
+            <div class="flex flex-col max-w-2xl">
                 <div class="w-full bg-white m-3 border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
                     <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Resume Editor</h5>
                     <div class="my-4">
@@ -125,13 +129,7 @@
                                     </h2>
                                     <div id="resume-editor-body-2" class="hidden" aria-labelledby="resume-editor-heading-2">
                                         <div class="py-5 border-b border-gray-200 dark:border-gray-700">
-                                            <p >The main difference is that the core components from Flowbite are open source under the MIT license, whereas Tailwind UI is a paid product. Another difference is that Flowbite relies on smaller and standalone components, whereas Tailwind UI offers sections of pages.</p>
-                                            <p class="mb-2 text-gray-500 dark:text-gray-400">However, we actually recommend using both Flowbite, Flowbite Pro, and even Tailwind UI as there is no technical reason stopping you from using the best of two worlds.</p>
-                                            <p class="mb-2 text-gray-500 dark:text-gray-400">Learn more about these technologies:</p>
-                                            <ul class="ps-5 text-gray-500 list-disc dark:text-gray-400">
-                                                <li><a href="https://flowbite.com/pro/" class="text-blue-600 dark:text-blue-500 hover:underline">Flowbite Pro</a></li>
-                                                <li><a href="https://tailwindui.com/" rel="nofollow" class="text-blue-600 dark:text-blue-500 hover:underline">Tailwind UI</a></li>
-                                            </ul>
+                                            {% include "components/resume_components/summary.html" %}
                                         </div>
                                     </div>
                                     <h2 id="resume-editor-heading-3">
@@ -142,30 +140,10 @@
                                             </svg>
                                         </button>
                                     </h2>
+                                <!-- Experience -->
                                     <div id="resume-editor-body-3" class="hidden" aria-labelledby="resume-editor-heading-3">
                                         <div class="py-5 border-b border-gray-200 dark:border-gray-700">
-                                            <div id="work-history" data-accordion="collapse">
-                                                {% for experience in app_data['resume']['work_history'] %}
-                                                    <h2 id="work-history-heading-{{ loop.index }}">
-                                                        <button type="button" class="flex text-left items-center justify-between w-full p-5 font-medium text-gray-500 border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-600  hover:bg-gray-100 gap-3" data-accordion-target="#work-history-body-{{ loop.index }}" aria-expanded="false" aria-controls="work-history-body-{{ loop.index }}">
-                                                            <div class="grid grid-cols-1">
-                                                                <p class="font-medium text-gray-500 dark:text-gray-300">{{ experience['job_title'] }}</p>
-                                                                <p class="font-normal text-gray-600 dark:text-gray-400">{{ experience['company_name'] }}</p>
-                                                            </div>
-                                                            <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
-                                                            </svg>
-                                                        </button>
-                                                    </h2>
-                                                    <div id="work-history-body-{{ loop.index }}" class="hidden" aria-labelledby="work-history-heading-{{ loop.index }}">
-                                                        <div class="p-5 border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
-                                                            <p class="mb-2 text-gray-500 dark:text-gray-400">Flowbite is an open-source library of interactive components built on top of Tailwind CSS including buttons, dropdowns, modals, navbars, and more.</p>
-                                                            <p class="text-gray-500 dark:text-gray-400">Check out this guide to learn how to <a href="/docs/getting-started/introduction/" class="text-blue-600 dark:text-blue-500 hover:underline">get started</a> and start developing websites even faster with components on top of Tailwind CSS.</p>
-                                                        </div>
-                                                    </div>
-                                                {% endfor %}
-                                            </div>
-
+                                            {% include "components/resume_components/experience.html" %}
                                         </div>
                                     </div>
                                     <h2 id="resume-editor-heading-4">
@@ -242,7 +220,7 @@
           }
         },
         colors: ['#1ab7ea', '#0084ff', '#39539E', '#0077B5'],
-        labels: ['Searchability', 'Hard Skills', 'Soft Skills', 'LinkedIn'],
+        labels: ['Searchability', 'Hard Skills', 'Soft Skills', 'Formatting'],
         responsive: [{
           breakpoint: 480,
           options: {

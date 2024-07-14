@@ -12,3 +12,10 @@ Searchability rating:
 * No Pictures
 
 * How many important items can be parsed from the resume?
+
+
+
+## Change notes
+
+* In resume_dict I changed work history description to highlights and added summary. I need to make the changes in the 
+resume builder.
