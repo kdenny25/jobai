@@ -10,8 +10,10 @@ class Resume:
         self.contact_phone = ''
         self.contact_linkedin = ''
         self.contact_portfolio = ''
+        self.address = '' # new
 
         self.summary = ''
+        self.brand_statement = '' #new
         self.work_history = []
         self.projects = []
         self.education = []

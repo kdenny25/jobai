@@ -1,12 +1,14 @@
 from flask import Flask, request, render_template, url_for, redirect, flash, session
 from flask_wtf.csrf import CSRFProtect
 from flask_login import LoginManager, current_user,login_required, login_user, logout_user
+import werkzeug.exceptions as we
 import os, sys
 from datetime import datetime
 import math
 import spacy
 from dependencies import Database, Resume, Analysis
 from apps.resume_builder.routes import resume_builder
+
 
 db = Database()
 
@@ -30,6 +32,11 @@ app.secret_key = b'_53oi3uriq9pifpff;apl'
 @app.route('/')
 def hello_world():  # put application's code here
     return render_template('index.html')
+
+@app.errorhandler(we.BadRequest)
+def handle_bad_request(e):
+    #todo: add session timed-out alert message
+    return redirect('/applications/1')
 
 @app.route('/applications/')
 def redir_applications():
@@ -145,7 +152,9 @@ def app_analysis():
         "job_details": job_details,
         "hard_skills": analyze.hard_skills,
         "soft_skills": analyze.soft_skills,
-        "highlights": highlights
+        "highlights": highlights,
+        "scores": analyze.calc_scores(),
+        "resume": resume.to_dict()
     }
 
     #print(app_key_phrases)

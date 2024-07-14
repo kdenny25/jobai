@@ -7,3 +7,8 @@ Chart library used:
 
 ## Apex Charts
 https://apexcharts.com/javascript-chart-demos/radialbar-charts/custom-angle-circle/
+
+Searchability rating:
+* No Pictures
+
+* How many important items can be parsed from the resume?

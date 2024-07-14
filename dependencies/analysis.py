@@ -46,7 +46,42 @@ class Analysis:
             # if the resume count is less than the count
             skill_set[keyphrase] = (value, resume_count)
 
+    def calc_scores(self):
+        # hard skills score
+        hard_skills_total = 0
+        hard_skills_actual = 0
+        for item, value in self.hard_skills.items():
+            h_total = value[0]/2 + 1
+            if value[1] > value[0]:
+                h_actual = h_total
+            else:
+                h_base = 0 if value[1] == 0 else 1
+                h_actual = value[1]/2 + h_base
 
+            hard_skills_total += h_total
+            hard_skills_actual += h_actual
+
+        soft_skills_total = 0
+        soft_skills_actual = 0
+        for item, value in self.soft_skills.items():
+            print(value)
+            s_total = value[0]/2 + 1
+            if value[1] > value[0]:
+                s_actual = s_total
+            else:
+                s_base = 0 if value[1] == 0 else 1
+                s_actual = value[1]/2 + s_base
+
+            soft_skills_total += s_total
+            soft_skills_actual += s_actual
+
+        scores = {
+            "searchability": 0,
+            "hard_skills": int((hard_skills_actual/hard_skills_total)*100),
+            "soft_skills": int((soft_skills_actual/soft_skills_total)*100)
+        }
+
+        return scores
 
     def combine_resume(self):
         # merge resume

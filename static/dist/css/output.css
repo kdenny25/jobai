@@ -1211,6 +1211,14 @@ input[type="range"]::-ms-fill-lower {
   height: 100vh;
 }
 
+.h-dvh {
+  height: 100dvh;
+}
+
+.h-96 {
+  height: 24rem;
+}
+
 .max-h-full {
   max-height: 100%;
 }
@@ -1387,6 +1395,10 @@ input[type="range"]::-ms-fill-lower {
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.list-inside {
+  list-style-position: inside;
 }
 
 .list-disc {

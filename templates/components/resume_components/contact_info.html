@@ -1,0 +1,28 @@
+<div class="grid gap-4 mb-4 grid-cols-2">
+    <div class="col-span-2">
+        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+        <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type full name" value="{{ app_data['resume']['name'] }}" required>
+        <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}" />
+    </div>
+    <div class="col-span-2">
+        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email Address</label>
+        <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type email" value="{{ app_data['resume']['contact']['email'] }}">
+        <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}" />
+    </div>
+    <div class="col-span-2">
+        <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone Number</label>
+        <input type="tel" name="phone" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="+1 000-000-0000" value="{{ app_data['resume']['contact']['phone'] }}">
+        <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}" />
+    </div>
+    <div class="col-span-2">
+        <label for="linkedin" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">LinkedIn Profile</label>
+
+        <input type="text" name="linkedin" id="linkedin" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="You LinkedIn Profile" value="{{ app_data['resume']['contact']['linkedin'] }}">
+        <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}" />
+    </div>
+    <div class="col-span-2">
+        <label for="portfolio" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Portfolio Site</label>
+        <input type="text" name="portfolio" id="portfolio" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Your website" value="{{ app_data['resume']['contact']['portfolio'] }}">
+        <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}" />
+    </div>
+</div>
