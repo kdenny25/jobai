@@ -1,4 +1,5 @@
 from dependencies.database import Database
+from datetime import datetime
 
 db = Database()
 
@@ -21,6 +22,22 @@ class Resume:
         self.awards = []
         self.skills = []
 
+        self.months = [
+                "January",
+                "February",
+                "March",
+                "April",
+                "May",
+                "June",
+                "July",
+                "August",
+                "September",
+                "October",
+                "November",
+                "December"
+            ]
+        self.years = self.gen_years()
+
         self.load_from_db()
     def load_from_db(self):
         """Loads user resume from database."""
@@ -39,6 +56,14 @@ class Resume:
         self.certifications = resume['certifications']
         self.awards = resume['awards']
         self.skills = resume['skills']
+
+    def gen_years(self):
+        current_year = datetime.today().year
+        last_year = current_year - 100
+
+        years = [str(Y) for Y in range(current_year, last_year - 1, -1)]
+
+        return years
 
     def to_dict(self):
         resume = {

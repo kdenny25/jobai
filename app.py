@@ -154,7 +154,9 @@ def app_analysis():
         "soft_skills": analyze.soft_skills,
         "highlights": highlights,
         "scores": analyze.calc_scores(),
-        "resume": resume.to_dict()
+        "resume": resume.to_dict(),
+        "months": resume.months,
+        "years": resume.years
     }
 
     #print(app_key_phrases)
